@@ -1,0 +1,15 @@
+div div.beginning-screen div.row{
+    height: 600px;
+    align-items: center;
+}
+
+.startScreenHeader {
+    height: 300px;
+    background: url();
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.startButton, .helpButton {
+    margin-top: 8px;
+}
