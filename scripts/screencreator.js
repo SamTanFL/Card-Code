@@ -30,7 +30,7 @@ var battleScreen = function () {
     battleScreenDiv.appendChild(row3Div);
     var actionsFlow = document.createElement("span");
     actionsFlow.classList.add("col", "col-4", "offset-4", "actionsFlow")
-    actionsFlow.innerText = "Just enter some text here for now. PLACEHOLDER";
+    actionsFlow.innerText = "Just enter some text here for now.";
     row3Div.appendChild(actionsFlow);
     var row4Div = document.createElement("div");
     row4Div.classList.add("row");
@@ -43,6 +43,7 @@ var battleScreen = function () {
             card.classList.add("col", "col-1", "cards");
             card.setAttribute("id", "card" + i);
             card.setAttribute("state", "empty");
+            card.setAttribute("position", i);
             card.innerText = "PLACEHOLDER";
             card.addEventListener("click", getSlotData);
             cardsDisplay.appendChild(card);

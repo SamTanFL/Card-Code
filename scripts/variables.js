@@ -56,7 +56,10 @@ var cards = [
 var cardsInSession = [];
 var cardsInDeck = [];
 var cardsInHand = [];
-var cardsInFlow = [];
+var cardsInFlow = [
+{},
+{},
+{}];
 var cardsInDiscard = [];
 
 
@@ -69,13 +72,17 @@ var enemies = {
         name: "Some Long String",
         health: 20,
         maxHealth: 20,
-        type: 1
+        type: 0,
+        status: {
+            debuff: [],
+            buff: []
+        }
     },
     {
         name: "Some Floaty Floats",
         health: 30,
         maxHealth: 30,
-        type: 2
+        type: 1
     }
     ],
     elites: [],
@@ -89,7 +96,7 @@ var currentEnemy;
 
 
 //=======================================Map Stuffs=========================================================
-var mapLayout = [0, 0, 1, 3, 0, 4, 0, 1, 3, 2]
+var mapLayout = [0, 0, 1, 3, 0, 4, 0, 1, 3, 2] // may try to randomize & have multiple paths in the future.
 
 
 
