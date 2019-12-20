@@ -38,9 +38,17 @@ var battleScreen = function () {
     var cardsDisplay = document.createElement("div");
     cardsDisplay.classList.add("col", "col-10", "cardsInHand");
     row4Div.appendChild(cardsDisplay);
+    for (i = 0; i < 10; i++){
+            var card = document.createElement("div")
+            card.classList.add("col-1", "cards");
+            card.setAttribute("id", "card" + i);
+            cardsDisplay.appendChild(card);
+        }
     var deckDisplay = document.createElement("div");
     deckDisplay.classList.add("col", "col-1", "cardDeck");
     row4Div.appendChild(deckDisplay);
+
+    setTimeout(dealDeck, 1000);
 }
 
 //Main Menu Creation
@@ -66,6 +74,7 @@ var createMainMenu = function () {
     helpButton.classList.add("helpButton", "col-2", "offset-5");
     helpButton.innerText = "Instructions"
     row3Div.appendChild(helpButton);
-    document.querySelector(".startButton").addEventListener("click", battleScreen);
     document.querySelector(".startButton").addEventListener("click", createStartingDeck);
+    document.querySelector(".startButton").addEventListener("click", initBattle);
+    document.querySelector(".startButton").addEventListener("click", battleScreen);
 }

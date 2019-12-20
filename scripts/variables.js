@@ -21,7 +21,7 @@ var status = [];
 
 
 
-//===============================================Card Stuff==================================================
+//==============================================Card Stuff==================================================
 //An array to store the different card types and their states
 var cards = [
     {
@@ -53,32 +53,28 @@ var cards = [
     }
 ];
 
-var cardsInPlay = [];
 var cardsInSession = [];
 var cardsInDeck = [];
 var cardsInHand = [];
+var cardsInFlow = [];
+var cardsInDiscard = [];
 
 
 
-
-
-
-
-
-//==========================================Enemy Stuffs=====================================================
+//==========================================Enemy Stuffs====================================================
 //An object to store the different types of enemies you will encounter
 var enemies = {
     normal: [
     {
         name: "Some Long String",
-        health: 100,
-        maxHealth: 100,
+        health: 20,
+        maxHealth: 20,
         type: 1
     },
     {
         name: "Some Floaty Floats",
-        health: 100,
-        maxHealth: 100,
+        health: 30,
+        maxHealth: 30,
         type: 2
     }
     ],
@@ -87,6 +83,13 @@ var enemies = {
 };
 
 
+var currentEnemy;
+
+
+
+
+//=======================================Map Stuffs=========================================================
+var mapLayout = [0, 0, 1, 3, 0, 4, 0, 1, 3, 2]
 
 
 
@@ -97,7 +100,14 @@ var enemies = {
 
 
 
-//=========================================MISC==============================================================
+//========================================MISC==============================================================
+//For random Numbers
+var ranNum;
+
+
+
+
+
 //Finding my page elements
 var container = document.querySelector(".container");
 var initGameButton = document.querySelector(".initGame");

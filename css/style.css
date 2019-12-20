@@ -19,6 +19,5 @@ body div div div.row.battleScreenTop img {
 }
 
 body div div div:nth-child(4) div.col.col-10.cardsInHand {
-    background: url("https://1001freedownloads.s3.amazonaws.com/vector/thumb/63319/Placeholder.png");
     height: 100px;
 }

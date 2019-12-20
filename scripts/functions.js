@@ -1,3 +1,4 @@
+//Deck Stuffs ---------------------------------------------------------------------------------------------
 var createStartingDeck = function () {
     for (i = 0; i < 10; i++) {
         if (i < 5) {
@@ -9,11 +10,90 @@ var createStartingDeck = function () {
 }
 
 var initBattle = function () {
+    currentEnemy = enemies.normal[0];
+    shuffleSess2Deck();
+}
+
+
+var shuffleSess2Deck = function () {
+    let tempD = cardsInSession;
+    shuffle(tempD);
+    cardsInDeck = tempD;
+}
+
+
+var selectCard2Flow = function () {
 
 }
 
 
+var dealDeck = function () {
+    for (var i = 0; i < 5; i++) {
+        cardsInHand.push(cardsInDeck.shift());
+    }
+}
+
+var discardHand = function () {
+    var handSize = cardsInHand.length
+    for (var i = 0; i < handSize; i++) {
+        cardsInDiscard.push(cardsInHand.shift());
+    }
+}
+
+var shuffleDiscard2Deck = function () {
+    shuffle(cardsInDiscard);
+    var discardSize = cardsInDiscard.length
+    for (var i = 0; i < discardSize; i++) {
+        cardsInDeck.push(cardsInDiscard.shift());
+    };
+}
 
 
 
-//Random Num Generator
+//Combat Stuffs---------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Randomizer Stuffs-----------------------------------------------------------------------------------
+var ranNumGen = function (numRange) {
+    ranNum = Math.floor(Math.random()*numRange);
+    console.log(ranNum);
+    return ranNum;
+};
+
+
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  };
+}
