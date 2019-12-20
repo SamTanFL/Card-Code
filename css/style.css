@@ -5,11 +5,20 @@ div div.beginning-screen div.row{
 
 .startScreenHeader {
     height: 300px;
-    background: url();
+    background: url("https://1001freedownloads.s3.amazonaws.com/vector/thumb/63319/Placeholder.png");
     background-size: cover;
     background-repeat: no-repeat;
 }
 
 .startButton, .helpButton {
     margin-top: 8px;
+}
+
+body div div div.row.battleScreenTop img {
+    height: 400px;
+}
+
+body div div div:nth-child(4) div.col.col-10.cardsInHand {
+    background: url("https://1001freedownloads.s3.amazonaws.com/vector/thumb/63319/Placeholder.png");
+    height: 100px;
 }
