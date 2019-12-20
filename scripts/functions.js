@@ -22,14 +22,26 @@ var shuffleSess2Deck = function () {
 }
 
 
-var selectCard2Flow = function () {
+var getSlotData = function (event) {
+    if (this.attributes.state.textContent !== "empty") {
+        console.log("do something");
+    } else {
+        console.log("do nothing");
+    }
+}
 
+
+
+var selectCard2Flow = function () {
 }
 
 
 var dealDeck = function () {
     for (var i = 0; i < 5; i++) {
+        var cards = document.querySelectorAll(".cards")
+        cards[i].setAttribute("state", "" + cardsInDeck[i].cardID);
         cardsInHand.push(cardsInDeck.shift());
+        cards[i].innerText = cardsInHand[i].cardID;
     }
 }
 

@@ -36,19 +36,21 @@ var battleScreen = function () {
     row4Div.classList.add("row");
     battleScreenDiv.appendChild(row4Div);
     var cardsDisplay = document.createElement("div");
-    cardsDisplay.classList.add("col", "col-10", "cardsInHand");
+    cardsDisplay.classList.add("cardsInHand");
     row4Div.appendChild(cardsDisplay);
     for (i = 0; i < 10; i++){
             var card = document.createElement("div")
-            card.classList.add("col-1", "cards");
+            card.classList.add("col", "col-1", "cards");
             card.setAttribute("id", "card" + i);
+            card.setAttribute("state", "empty");
+            card.innerText = "PLACEHOLDER";
+            card.addEventListener("click", getSlotData);
             cardsDisplay.appendChild(card);
         }
     var deckDisplay = document.createElement("div");
     deckDisplay.classList.add("col", "col-1", "cardDeck");
     row4Div.appendChild(deckDisplay);
-
-    setTimeout(dealDeck, 1000);
+    setTimeout(dealDeck, 1500);
 }
 
 //Main Menu Creation
