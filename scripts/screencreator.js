@@ -30,7 +30,18 @@ var battleScreen = function () {
     battleScreenDiv.appendChild(row3Div);
     var actionsFlow = document.createElement("span");
     actionsFlow.classList.add("col", "col-4", "offset-4", "actionsFlow")
-    actionsFlow.innerText = "Just enter some text here for now.";
+    var flowRow = document.createElement("div");
+    actionsFlow.appendChild(flowRow);
+    flowRow.classList.add("row", "flowRow");
+    for (i = 0; i < 3; i++) {
+        var flowCol = document.createElement("span");
+        flowCol.classList.add("col", "col-1");
+        flowCol.setAttribute("id", "flow" + i);
+        flowCol.setAttribute("state", "empty");
+        flowCol.setAttribute("position", i);
+        flowCol.addEventListener("clicked", flowToHand)
+        flowRow.appendChild(flowCol);
+    }
     row3Div.appendChild(actionsFlow);
     var row4Div = document.createElement("div");
     row4Div.classList.add("row");
@@ -39,19 +50,19 @@ var battleScreen = function () {
     cardsDisplay.classList.add("cardsInHand");
     row4Div.appendChild(cardsDisplay);
     for (i = 0; i < 10; i++){
-            var card = document.createElement("div")
-            card.classList.add("col", "col-1", "cards");
-            card.setAttribute("id", "card" + i);
-            card.setAttribute("state", "empty");
-            card.setAttribute("position", i);
-            card.innerText = "PLACEHOLDER";
-            card.addEventListener("click", getSlotData);
-            cardsDisplay.appendChild(card);
+        var card = document.createElement("div")
+        card.classList.add("col", "col-1", "cards");
+        card.setAttribute("id", "card" + i);
+        card.setAttribute("state", "empty");
+        card.setAttribute("position", i);
+        card.innerText = "PLACEHOLDER";
+        card.addEventListener("click", getSlotData);
+        cardsDisplay.appendChild(card);
         }
     var deckDisplay = document.createElement("div");
     deckDisplay.classList.add("col", "col-1", "cardDeck");
     row4Div.appendChild(deckDisplay);
-    setTimeout(dealDeck, 1500);
+    setTimeout(dealDeck, 500);
 }
 
 //Main Menu Creation

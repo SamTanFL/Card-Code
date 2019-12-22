@@ -31,7 +31,8 @@ var cards = [
         cardType: 1,
         cardEff: 5,
         cardDesc: "For testing purpose. Attack",
-        cardAdd: false
+        cardAdd: false,
+        cardSlot: undefined
     },
     {
         cardID: 1,
@@ -40,7 +41,8 @@ var cards = [
         cardType: 2,
         cardEff: 5,
         cardDesc: "For testing purpose. Block",
-        cardAdd: false
+        cardAdd: false,
+        cardSlot: undefined
     },
     {
         cardID: 2,
@@ -49,7 +51,8 @@ var cards = [
         cardType: 1,
         cardEff: 3,
         cardDesc: "For testing purpose. Can I do it?",
-        cardAdd: "multi 3"
+        cardAdd: "multi 3",
+        cardSlot: undefined
     }
 ];
 
@@ -57,9 +60,9 @@ var cardsInSession = [];
 var cardsInDeck = [];
 var cardsInHand = [];
 var cardsInFlow = [
-{},
-{},
-{}];
+"empty",
+"empty",
+"empty"];
 var cardsInDiscard = [];
 
 

@@ -3,9 +3,9 @@
 var createStartingDeck = function () {
     for (i = 0; i < 10; i++) {
         if (i < 5) {
-            cardsInSession[i] = cards[0];
+            cardsInSession[i] = cards.slice(0);
         } else {
-            cardsInSession[i] = cards[1];
+            cardsInSession[i] = cards.slice(1);
         }
     }
 }
@@ -18,33 +18,45 @@ var initBattle = function () {
 
 //shuffles deck and slots it into the deck variable
 var shuffleSess2Deck = function () {
-    let tempD = cardsInSession;
+    var tempD = cardsInSession.slice();
     shuffle(tempD);
-    cardsInDeck = tempD;
+    cardsInDeck = tempD.slice();
 }
 
 //gets the state of the card slot clicked and executes
 var getSlotData = function (event) {
-    if (this.attributes.state.textContent !== "empty") {
+    if (this.attributes.state.textContent !== "empty" && this.attributes.state.textContent !== "used") {
         var cardPosition = parseInt(this.attributes.position.textContent);
-        hand2Flow(cardPosition);
+        handToFlow(cardPosition);
     } else {
         console.log("do nothing");
     }
 }
 
 //moves the card from Hand to flow area
-var hand2Flow = function (cardPosition) {
-    cardsInFlow = cardsInHand[cardPosition]
+var handToFlow = function (cardPosition) {
+    if (cardsInFlow[0] == "empty") {
+        cardsInFlow[0] = cardsInHand.slice(cardPosition);
+        event.target.setAttribute("state", "used");
+    } else if (cardsInFlow[1] == "empty") {
+        cardsInFlow[1] = cardsInHand.slice(cardPosition);
+        event.target.setAttribute("state", "used");
+    } else if (cardsInFlow[2] == "empty") {
+        cardsInFlow[2] = cardsInHand.slice(cardPosition);
+        event.target.setAttribute("state", "used");
+    } else {
+        alert("Flow is Full")
+    }
 }
 
 //Moves cardsSession to deck.
 var dealDeck = function () {
     for (var i = 0; i < 5; i++) {
-        var cards = document.querySelectorAll(".cards")
-        cards[i].setAttribute("state", "" + cardsInDeck[i].cardID);
+        var card = document.querySelectorAll(".cards")
         cardsInHand.push(cardsInDeck.shift());
-        cards[i].innerText = cardsInHand[i].cardID;
+        card[i].setAttribute("state", "" + cardsInHand[i].cardID);
+        cardsInHand[i].cardSlot = parseInt(document.querySelectorAll(".cards")[i].attributes.position.textContent);
+        card[i].innerText = cardsInHand[i].cardID;
     }
 }
 
@@ -62,6 +74,12 @@ var shuffleDiscard2Deck = function () {
     for (var i = 0; i < discardSize; i++) {
         cardsInDeck.push(cardsInDiscard.shift());
     };
+}
+
+//moves card from flow back to hand
+var flowToHand = function (event) {
+    var flowPosition = parseInt(this.attributes.position.textContent);
+    cardInFlow[flowPosition] = "empty";
 }
 
 
