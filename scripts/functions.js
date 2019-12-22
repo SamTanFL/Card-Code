@@ -1,11 +1,12 @@
 //Deck Stuffs ---------------------------------------------------------------------------------------------
 //Every New game that starts this is used to make the starting deck.
 var createStartingDeck = function () {
+    var tempCards = cards.slice();
     for (i = 0; i < 10; i++) {
         if (i < 5) {
-            cardsInSession[i] = cards.slice(0);
+            cardsInSession[i] = tempCards[0];
         } else {
-            cardsInSession[i] = cards.slice(1);
+            cardsInSession[i] = tempCards[1];
         }
     }
 }
@@ -35,14 +36,15 @@ var getSlotData = function (event) {
 
 //moves the card from Hand to flow area
 var handToFlow = function (cardPosition) {
+    var tempHands = cardsInHand.slice();
     if (cardsInFlow[0] == "empty") {
-        cardsInFlow[0] = cardsInHand.slice(cardPosition);
+        cardsInFlow[0] = tempHands[cardPosition];
         event.target.setAttribute("state", "used");
     } else if (cardsInFlow[1] == "empty") {
-        cardsInFlow[1] = cardsInHand.slice(cardPosition);
+        cardsInFlow[1] = tempHands[cardPosition];
         event.target.setAttribute("state", "used");
     } else if (cardsInFlow[2] == "empty") {
-        cardsInFlow[2] = cardsInHand.slice(cardPosition);
+        cardsInFlow[2] = tempHands[cardPosition];
         event.target.setAttribute("state", "used");
     } else {
         alert("Flow is Full")
