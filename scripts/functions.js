@@ -68,12 +68,16 @@ var handToFlow = function (cardPosition) {
 
 //Moves cardsSession to deck.
 var dealDeck = function () {
-    for (var i = 0; i < 5; i++) {
-        var card = document.querySelectorAll(".cards")
-        cardsInHand.push(cardsInDeck.shift());
-        card[i].setAttribute("state", "" + cardsInHand[i]);
-        card[i].classList.add("type" + cardsInHand[i]);
-        card[i].classList.remove("empty");
+    if (cardsInDeck.length < 5) {
+        shuffleDiscard2Deck();
+    } else {
+        for (var i = 0; i < 5; i++) {
+            var card = document.querySelectorAll(".cards");
+            cardsInHand.push(cardsInDeck.shift());
+            card[i].setAttribute("state", "" + cardsInHand[i]);
+            card[i].classList.add("type" + cardsInHand[i]);
+            card[i].classList.remove("empty");
+        };
     }
 }
 
@@ -115,13 +119,20 @@ var flowToHand = function (event) {
 
 //Combat Stuffs---------------------------------------------------------------------------------------------
 
-var resolveActions = function () {
-    discardHand();
-    emptyFlow();
-    if (cardsInDeck.length == 0) {
-        shuffleDiscard2Deck();
+var executeFlow = function () {
+    for (var i = 0; i < 3; i++) {
+        var cardId = parseInt(cardsInFlow[i]);
+        var card = cards[cardId];
+        if (card.cardType === 1) {
+            currentEnemy.health = currentEnemy.health - card.cardEff
+        } else if (card.cardType === 2) {
+            //this needs to be filled in. but this is basically for blocking
+        } else {
+            console.log("something went wrong in executeFlow");
+        }
+    } if (currentEnemy.health <= 0) {
+        endBattle();
     }
-    setTimeout(dealDeck, 1000);
 }
 
 
@@ -134,24 +145,20 @@ var resolveActions = function () {
 
 
 
+var endBattle = function () {
+    console.log("enemy is dead");
+    return;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+var resolveActions = function () {
+    executeFlow();
+    discardHand();
+    emptyFlow();
+    if (cardsInDeck.length == 0) {
+        shuffleDiscard2Deck();
+    }
+    setTimeout(dealDeck, 1000);
+}
 
 //Randomizer Stuffs-----------------------------------------------------------------------------------
 var ranNumGen = function (numRange) {

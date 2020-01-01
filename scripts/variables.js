@@ -25,34 +25,28 @@ var status = [];
 //An array to store the different card types and their states
 var cards = [
     {
-        cardID: 0,
+        cardUniqueID: 0,
         cardName: "Attack",
-        cardCost: 1,
         cardType: 1,
         cardEff: 5,
         cardDesc: "For testing purpose. Attack",
-        cardAdd: false,
-        cardSlot: undefined
+        cardAdd: false
     },
     {
-        cardID: 1,
+        cardUniqueID: 1,
         cardName: "Block",
-        cardCost: 1,
         cardType: 2,
         cardEff: 5,
         cardDesc: "For testing purpose. Block",
-        cardAdd: false,
-        cardSlot: undefined
+        cardAdd: false
     },
     {
-        cardID: 2,
+        cardUniqueID: 2,
         cardName: "MultiStrike",
-        cardCost: 1,
         cardType: 1,
         cardEff: 3,
         cardDesc: "For testing purpose. Can I do it?",
-        cardAdd: "multi 3",
-        cardSlot: undefined
+        cardAdd: "multi 3"
     }
 ];
 
