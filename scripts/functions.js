@@ -6,8 +6,19 @@ var createStartingDeck = function () {
 
 //Initiates the battle variables
 var initBattle = function () {
-    currentEnemy = enemies.normal[0]; //picks enemy
+    var enemyTemp = enemies.normal.slice()
+    currentEnemy = enemyTemp[0]; //picks enemy
     shuffleSess2Deck();
+}
+
+//empties the flow area & resets flow
+var emptyFlow = function () {
+    flowArea = document.querySelectorAll(".flow");
+    for (var i = 0; i < 3; i++) {
+        flowArea[i].attributes.class.textContent = "col col-1 flow empty";
+    }
+    cardsInFlow = [ "empty", "empty", "empty"];
+    cardsInFlowPosition = ["empty", "empty", "empty"];
 }
 
 //shuffles deck and slots it into the deck variable
@@ -68,9 +79,11 @@ var dealDeck = function () {
 
 //Empties the hand into the discard pile
 var discardHand = function () {
+    var cardsHand = document.querySelectorAll(".cards");
     var handSize = cardsInHand.length
     for (var i = 0; i < handSize; i++) {
         cardsInDiscard.push(cardsInHand.shift());
+        cardsHand[i].attributes.class.textContent = "col col-1 cards empty";
     }
 }
 
@@ -103,7 +116,12 @@ var flowToHand = function (event) {
 //Combat Stuffs---------------------------------------------------------------------------------------------
 
 var resolveActions = function () {
-
+    discardHand();
+    emptyFlow();
+    if (cardsInDeck.length == 0) {
+        shuffleDiscard2Deck();
+    }
+    setTimeout(dealDeck, 1000);
 }
 
 
