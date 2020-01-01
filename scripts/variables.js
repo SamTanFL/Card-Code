@@ -56,6 +56,7 @@ var cards = [
     }
 ];
 
+var cardStartDefault = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1];
 var cardsInSession = [];
 var cardsInDeck = [];
 var cardsInHand = [];

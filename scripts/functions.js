@@ -1,14 +1,7 @@
 //Deck Stuffs ---------------------------------------------------------------------------------------------
 //Every New game that starts this is used to make the starting deck.
 var createStartingDeck = function () {
-    var tempCards = cards.slice();
-    for (i = 0; i < 10; i++) {
-        if (i < 5) {
-            cardsInSession[i] = tempCards[0];
-        } else {
-            cardsInSession[i] = tempCards[1];
-        }
-    }
+    cardsInSession = cardStartDefault.slice();
 }
 
 //Initiates the battle variables
@@ -56,9 +49,6 @@ var dealDeck = function () {
     for (var i = 0; i < 5; i++) {
         var card = document.querySelectorAll(".cards")
         cardsInHand.push(cardsInDeck.shift());
-        card[i].setAttribute("state", "" + cardsInHand[i].cardID);
-        cardsInHand[i].cardSlot = parseInt(document.querySelectorAll(".cards")[i].attributes.position.textContent);
-        card[i].innerText = cardsInHand[i].cardID;
     }
 }
 
