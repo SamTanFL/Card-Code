@@ -1,15 +1,28 @@
-//Deck Stuffs ---------------------------------------------------------------------------------------------
-//Every New game that starts this is used to make the starting deck.
-var createStartingDeck = function () {
-    cardsInSession = cardStartDefault.slice();
-}
-
+//MISC STUFFS ----------------------------------------------------------------------------------------------
 //Initiates the battle variables
 var initBattle = function () {
     var enemyTemp = enemies.normal.slice()
     currentEnemy = enemyTemp[0]; //picks enemy
     shuffleSess2Deck();
 }
+
+
+var playerHPUpdate = function () {
+    var playerDis = document.querySelector(".playerDis");
+    playerDis.innerText = `HP : ${player.health}`;
+}
+
+var enemyHPUpdate = function () {
+    var enemyDis = document.querySelector(".enemyDis");
+    enemyDis.innerText = `${enemies.normal[0].name}\nHP : ${enemies.normal[0].health}`;
+}
+
+//Deck Stuffs ---------------------------------------------------------------------------------------------
+//Every New game that starts this is used to make the starting deck.
+var createStartingDeck = function () {
+    cardsInSession = cardStartDefault.slice();
+}
+
 
 //empties the flow area & resets flow
 var emptyFlow = function () {
@@ -125,8 +138,13 @@ var executeFlow = function () {
         var card = cards[cardId];
         if (card.cardType === 1) {
             currentEnemy.health = currentEnemy.health - card.cardEff
+            if (currentEnemy.health < 0) {
+                currentEnemy.health = 0;
+            }
+            enemyHPUpdate();
         } else if (card.cardType === 2) {
             //this needs to be filled in. but this is basically for blocking
+            playerHPUpdate();
         } else {
             console.log("something went wrong in executeFlow");
         }
@@ -159,6 +177,7 @@ var resolveActions = function () {
     }
     setTimeout(dealDeck, 1000);
 }
+
 
 //Randomizer Stuffs-----------------------------------------------------------------------------------
 var ranNumGen = function (numRange) {

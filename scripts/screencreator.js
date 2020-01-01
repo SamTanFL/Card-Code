@@ -23,7 +23,7 @@ var battleScreen = function () {
     row2Div.appendChild(playerStatDiv);
     var enemyStatDiv = document.createElement("div");
     enemyStatDiv.classList.add("col", "col-2", "offset-3", "enemyDis")
-    enemyStatDiv.innerText = `${enemies.normal[0].name}\nHP : ${enemies.normal[0].health}`;
+    enemyStatDiv.innerText = `${currentEnemy.name}\nHP : ${currentEnemy.health}`;
     row2Div.appendChild(enemyStatDiv);
     var row3Div = document.createElement("div");
     row3Div.classList.add("row");
