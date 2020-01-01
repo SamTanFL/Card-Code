@@ -27,18 +27,29 @@ var getSlotData = function (event) {
     }
 }
 
-//moves the card from Hand to flow area
+//moves the card from Hand to flow area. Helps with tracking where card comes from
 var handToFlow = function (cardPosition) {
     var tempHands = cardsInHand.slice();
+    var cardsHand = document.querySelectorAll(".cards");
+    var flowArea = document.querySelectorAll(".flow");
     if (cardsInFlow[0] == "empty") {
         cardsInFlow[0] = tempHands[cardPosition];
-        event.target.setAttribute("state", "used");
+        cardsInFlowPosition[0] = cardPosition;
+        flowArea[0].classList.remove("empty")
+        flowArea[0].classList.add("type" + cardsInFlow[0]);
+        cardsHand[cardPosition].setAttribute("state", "used");
     } else if (cardsInFlow[1] == "empty") {
         cardsInFlow[1] = tempHands[cardPosition];
-        event.target.setAttribute("state", "used");
+        cardsInFlowPosition[1] = cardPosition;
+        flowArea[1].classList.remove("empty")
+        flowArea[1].classList.add("type" + cardsInFlow[1]);
+        cardsHand[cardPosition].setAttribute("state", "used");
     } else if (cardsInFlow[2] == "empty") {
         cardsInFlow[2] = tempHands[cardPosition];
-        event.target.setAttribute("state", "used");
+        cardsInFlowPosition[2] = cardPosition;
+        flowArea[2].classList.remove("empty")
+        flowArea[2].classList.add("type" + cardsInFlow[2]);
+        cardsHand[cardPosition].setAttribute("state", "used");
     } else {
         alert("Flow is Full")
     }
@@ -49,6 +60,9 @@ var dealDeck = function () {
     for (var i = 0; i < 5; i++) {
         var card = document.querySelectorAll(".cards")
         cardsInHand.push(cardsInDeck.shift());
+        card[i].setAttribute("state", "" + cardsInHand[i]);
+        card[i].classList.add("type" + cardsInHand[i]);
+        card[i].classList.remove("empty");
     }
 }
 
@@ -70,15 +84,27 @@ var shuffleDiscard2Deck = function () {
 
 //moves card from flow back to hand
 var flowToHand = function (event) {
-    var flowPosition = parseInt(this.attributes.position.textContent);
-    cardInFlow[flowPosition] = "empty";
+        var flowPosition = parseInt(this.attributes.position.textContent);
+        var cardsHand = document.querySelectorAll(".cards");
+    if (cardsInFlow[flowPosition] !== "empty") {
+        cardsHand[cardsInFlowPosition[flowPosition]].setAttribute("state", cardsInFlow[flowPosition]);
+        this.setAttribute("state", "empty");
+        this.classList.remove("type" + cardsInFlow[flowPosition])
+        this.classList.add("empty");
+        cardsInFlow[flowPosition] = "empty";
+        cardsInFlowPosition[flowPosition] = "empty";
+    } else {
+        console.log("do nuthing");
+    }
 }
 
 
 
 //Combat Stuffs---------------------------------------------------------------------------------------------
 
+var resolveActions = function () {
 
+}
 
 
 

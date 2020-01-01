@@ -1,0 +1,11 @@
+.empty {
+    background: url("../img/empty.png");
+}
+
+.type0 {
+    background: url("../img/00cardPlaceholder.png");
+}
+
+.type1 {
+    background: url("../img/01cardPlaceholder.png");
+}

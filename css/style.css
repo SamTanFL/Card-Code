@@ -19,7 +19,8 @@ body div div div.row.battleScreenTop img {
 }
 
 body div div div:nth-child(4) div.col.col-10.cardsInHand {
-    height: 100px;
+    height: 150px;
+    width: 100px;
 }
 
 body div div div:nth-child(4) div.cardsInHand div {
@@ -27,5 +28,5 @@ body div div div:nth-child(4) div.cardsInHand div {
 }
 
 body div div div:nth-child(3) span div {
-    height: 30px;
+    height: 150px;
 }

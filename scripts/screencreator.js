@@ -35,14 +35,18 @@ var battleScreen = function () {
     flowRow.classList.add("row", "flowRow");
     for (i = 0; i < 3; i++) {
         var flowCol = document.createElement("span");
-        flowCol.classList.add("col", "col-1");
+        flowCol.classList.add("col", "col-1", "flow", "empty");
         flowCol.setAttribute("id", "flow" + i);
         flowCol.setAttribute("state", "empty");
         flowCol.setAttribute("position", i);
-        flowCol.addEventListener("clicked", flowToHand)
+        flowCol.addEventListener("click", flowToHand)
         flowRow.appendChild(flowCol);
     }
     row3Div.appendChild(actionsFlow);
+    var actionButton = document.createElement("button");
+    actionButton.innerText = "Execute";
+    actionButton.addEventListener("click", resolveActions);
+    row3Div.appendChild(actionButton)
     var row4Div = document.createElement("div");
     row4Div.classList.add("row");
     battleScreenDiv.appendChild(row4Div);
@@ -51,11 +55,11 @@ var battleScreen = function () {
     row4Div.appendChild(cardsDisplay);
     for (i = 0; i < 10; i++){
         var card = document.createElement("div")
-        card.classList.add("col", "col-1", "cards");
+        card.classList.add("col", "col-1", "cards", "empty");
         card.setAttribute("id", "card" + i);
         card.setAttribute("state", "empty");
         card.setAttribute("position", i);
-        card.innerText = "PLACEHOLDER";
+        card.innerText = "test";
         card.addEventListener("click", getSlotData);
         cardsDisplay.appendChild(card);
         }

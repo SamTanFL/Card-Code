@@ -60,10 +60,8 @@ var cardStartDefault = [0, 0, 0, 0, 0, 1, 1, 1, 1, 1];
 var cardsInSession = [];
 var cardsInDeck = [];
 var cardsInHand = [];
-var cardsInFlow = [
-"empty",
-"empty",
-"empty"];
+var cardsInFlow = [ "empty", "empty", "empty"]; //for referencing what cards do
+var cardsInFlowPosition = ["empty", "empty", "empty"]; //used for keeping track where cards came from
 var cardsInDiscard = [];
 
 
