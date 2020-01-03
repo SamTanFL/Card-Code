@@ -2,7 +2,8 @@
 //Initiates the battle variables
 var initBattle = function () {
     var enemyTemp = JSON.parse(JSON.stringify(enemies.normal)); //clones the array
-    currentEnemy = enemyTemp[0]; //needs a randomizer to randomise which enemy is picked
+    ranNumGen(enemyTemp.length)
+    currentEnemy = enemyTemp[ranNum];
     currentActions = enemyActions.normal[currentEnemy.enemyID];
     pickAction();
     shuffleSess2Deck();
@@ -222,7 +223,6 @@ var resetEnemyShields = function () {
 
 var endBattle = function () {
     console.log("enemy is dead");
-    return;
 }
 
 var resolveActions = function () {

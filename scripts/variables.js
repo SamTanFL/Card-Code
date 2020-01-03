@@ -66,8 +66,8 @@ var enemies = {
     normal: [
     {
         name: "Mr.Sticks",
-        health: 20,
-        maxHealth: 20,
+        health: 30,
+        maxHealth: 30,
         shields: 0,
         enemyID: 0,
         status: {
@@ -80,7 +80,22 @@ var enemies = {
         health: 30,
         maxHealth: 30,
         shields: 0,
-        enemyID: 1
+        enemyID: 1,
+        status: {
+            debuff: [],
+            buff: []
+        }
+    },
+    {
+        name: "Stick Dog",
+        health: 25,
+        maxHealth: 25,
+        shields: 0,
+        enemyID: 2,
+        status: {
+            debuff: [],
+            buff: []
+        }
     }
     ],
     elites: [],
@@ -96,8 +111,9 @@ var turnAction;
 //Actions that the enemies can take will be stored here in an object for the different types
 var enemyActions = {
     normal: [
-    [[0, 5], [1, 5], [2, 4, 4]],//First enemy patterns. the first number denotes the type
-    [[0, 3], [1, 8], [2, 4, 8]] //2nd enemy's pattern. more defensive.
+    [[0, 8], [1, 4], [2, 8, 4]],//Mr.Stick's actions
+    [[0, 4], [1, 8], [2, 4, 8]], //Mrs.Stick's actions
+    [[0, 10], [0, 10], [2, 8, 3]] //Stick Dog's actions
     ],
     elites: [],
     bosses: []
