@@ -3,10 +3,8 @@
 var player = {
     health: 100,
     maxHealth: 100,
-    energy: 3,
-    maxEnergy: 3,
     shields: 0,
-    handLimit: 5,
+    naturalDraw: 5,
     money: 0, //might use at a later time
     playerState: {
         debuff: [],
@@ -14,6 +12,8 @@ var player = {
     },
     progress: 0
 };
+
+var playerSession; //used so that to restart I can just clone the player stats again
 
 
 //Not sure if this will be kept but an array for the different status effects
@@ -43,10 +43,10 @@ var cards = [
     {
         cardUniqueID: 2,
         cardName: "MultiStrike",
-        cardType: 1,
-        cardEff: 3,
+        cardType: "Multi",
+        cardEff: 2,
         cardDesc: "For testing purpose. Can I do it?",
-        cardAdd: "multi 3"
+        cardAdd: 3
     }
 ];
 
@@ -68,7 +68,8 @@ var enemies = {
         name: "Some Long String",
         health: 20,
         maxHealth: 20,
-        type: 0,
+        shields: 0,
+        enemyID: 0,
         status: {
             debuff: [],
             buff: []
@@ -78,7 +79,8 @@ var enemies = {
         name: "Some Floaty Floats",
         health: 30,
         maxHealth: 30,
-        type: 1
+        shields: 0,
+        enemyID: 1
     }
     ],
     elites: [],
@@ -87,6 +89,21 @@ var enemies = {
 
 
 var currentEnemy;
+var currentActions;
+
+
+//Actions that the enemies can take will be stored here in an object for the different types
+var enemyActions = {
+    normal: [
+    [[0, 5], [1, 5], [2, 5, 5]],//First enemy patterns. the first number denotes the type
+    [[0, 3], [1, 8], [2, 4, 8]] //2nd enemy's pattern. more defensive.
+    ],
+    elites: [],
+    bosses: []
+}
+
+
+
 
 
 

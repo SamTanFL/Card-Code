@@ -19,7 +19,7 @@ var battleScreen = function () {
     battleScreenDiv.appendChild(row2Div);
     var playerStatDiv = document.createElement("div");
     playerStatDiv.classList.add("col", "col-2", "offset-2", "playerDis")
-    playerStatDiv.innerText = `HP : ${player.health}`;
+    playerStatDiv.innerText = `HP : ${playerSession.health}`;
     row2Div.appendChild(playerStatDiv);
     var enemyStatDiv = document.createElement("div");
     enemyStatDiv.classList.add("col", "col-2", "offset-3", "enemyDis")
@@ -92,7 +92,7 @@ var createMainMenu = function () {
     helpButton.classList.add("helpButton", "col-2", "offset-5");
     helpButton.innerText = "Instructions"
     row3Div.appendChild(helpButton);
-    document.querySelector(".startButton").addEventListener("click", createStartingDeck);
+    document.querySelector(".startButton").addEventListener("click", createSession);
     document.querySelector(".startButton").addEventListener("click", initBattle);
     document.querySelector(".startButton").addEventListener("click", battleScreen);
 }

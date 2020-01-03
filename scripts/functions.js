@@ -1,26 +1,32 @@
 //MISC STUFFS ----------------------------------------------------------------------------------------------
 //Initiates the battle variables
 var initBattle = function () {
-    var enemyTemp = enemies.normal.slice()
-    currentEnemy = enemyTemp[0]; //picks enemy
+    var enemyTemp = JSON.parse(JSON.stringify(enemies.normal)); //clones the array
+    currentEnemy = enemyTemp[0]; //needs a randomizer to randomise which enemy is picked
     shuffleSess2Deck();
+}
+
+var createSession = function () {
+    playerSession = JSON.parse(JSON.stringify(player));
+    createStartingDeck();
 }
 
 
 var playerHPUpdate = function () {
     var playerDis = document.querySelector(".playerDis");
-    playerDis.innerText = `HP : ${player.health}`;
+    playerDis.innerText = `HP : ${playerSession.health}`;
 }
 
 var enemyHPUpdate = function () {
     var enemyDis = document.querySelector(".enemyDis");
-    enemyDis.innerText = `${enemies.normal[0].name}\nHP : ${enemies.normal[0].health}`;
+    if (currentEnemy.health < 0) {currentEnemy.health = 0;}
+    enemyDis.innerText = `${currentEnemy.name}\nHP : ${currentEnemy.health}`;
 }
 
 //Deck Stuffs ---------------------------------------------------------------------------------------------
 //Every New game that starts this is used to make the starting deck.
 var createStartingDeck = function () {
-    cardsInSession = cardStartDefault.slice();
+    cardsInSession = JSON.parse(JSON.stringify(cardStartDefault));
 }
 
 
@@ -36,9 +42,9 @@ var emptyFlow = function () {
 
 //shuffles deck and slots it into the deck variable
 var shuffleSess2Deck = function () {
-    var tempD = cardsInSession.slice();
+    var tempD = JSON.parse(JSON.stringify(cardsInSession));
     shuffle(tempD);
-    cardsInDeck = tempD.slice();
+    cardsInDeck = JSON.parse(JSON.stringify(tempD));
 }
 
 //gets the state of the card slot clicked and executes
@@ -53,7 +59,7 @@ var getSlotData = function (event) {
 
 //moves the card from Hand to flow area. Helps with tracking where card comes from
 var handToFlow = function (cardPosition) {
-    var tempHands = cardsInHand.slice();
+    var tempHands = JSON.parse(JSON.stringify(cardsInHand));
     var cardsHand = document.querySelectorAll(".cards");
     var flowArea = document.querySelectorAll(".flow");
     if (cardsInFlow[0] == "empty") {
@@ -81,17 +87,14 @@ var handToFlow = function (cardPosition) {
 
 //Moves cardsSession to deck.
 var dealDeck = function () {
-    if (cardsInDeck.length < 5) {
-        shuffleDiscard2Deck();
-    } else {
-        for (var i = 0; i < 5; i++) {
-            var card = document.querySelectorAll(".cards");
-            cardsInHand.push(cardsInDeck.shift());
-            card[i].setAttribute("state", "" + cardsInHand[i]);
-            card[i].classList.add("type" + cardsInHand[i]);
-            card[i].classList.remove("empty");
-        };
-    }
+    for (var i = 0; i < playerSession.naturalDraw; i++) {
+        if (cardsInDeck == 0) {shuffleDiscard2Deck()};
+        var card = document.querySelectorAll(".cards");
+        cardsInHand.push(cardsInDeck.shift());
+        card[i].setAttribute("state", "" + cardsInHand[i]);
+        card[i].classList.add("type" + cardsInHand[i]);
+        card[i].classList.remove("empty");
+    };
 }
 
 //Empties the hand into the discard pile
@@ -136,19 +139,34 @@ var executeFlow = function () {
     for (var i = 0; i < 3; i++) {
         var cardId = parseInt(cardsInFlow[i]);
         var card = cards[cardId];
-        if (card.cardType === 1) {
-            currentEnemy.health = currentEnemy.health - card.cardEff
-            if (currentEnemy.health < 0) {
-                currentEnemy.health = 0;
-            }
-            enemyHPUpdate();
-        } else if (card.cardType === 2) {
-            //this needs to be filled in. but this is basically for blocking
-            playerHPUpdate();
-        } else {
-            console.log("something went wrong in executeFlow");
-        }
-    } if (currentEnemy.health <= 0) {
+        switch (card.cardType) {
+            case 1:
+                if (currentEnemy.shields < 0) { currentEnemy.shields = 0};
+                currentEnemy.shields = currentEnemy.shields - card.cardEff;
+                if (currentEnemy.shields < 0) {
+                    currentEnemy.health = currentEnemy.health + currentEnemy.shields};
+                enemyHPUpdate();
+            break;
+            case 2:
+                if (playerSession.shields < 0) {playerSession.shields = 0};
+                playerSession.shields = playerSession.shields + card.cardEff;
+                playerHPUpdate();
+            break;
+            case "Multi":
+                for (i = 0; i < card.cardAdd; i++) {
+                    if (currentEnemy.shields < 0) {currentEnemy.shields = 0};
+                    currentEnemy.shields = currentEnemy.shields - card.cardEff;
+                };
+                if (currentEnemy.shields < 0) {
+                    currentEnemy.health = currentEnemy.health + currentEnemy.shields;
+                };
+                enemyHPUpdate();
+            break;
+            default:
+                console.log("something went wrong in executeFlow");
+    }; // <<=============end of switch bracket
+    } //    <<==============end of the for loop bracket
+    if (currentEnemy.health <= 0) {
         endBattle();
     }
 }
@@ -172,9 +190,6 @@ var resolveActions = function () {
     executeFlow();
     discardHand();
     emptyFlow();
-    if (cardsInDeck.length == 0) {
-        shuffleDiscard2Deck();
-    }
     setTimeout(dealDeck, 1000);
 }
 
