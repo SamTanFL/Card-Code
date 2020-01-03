@@ -168,7 +168,6 @@ var executeFlow = function () {
                 console.log("something went wrong in executeFlow");
         }; // <<=============end of switch bracket
     } //    <<==============end of the for loop bracket
-    if (currentEnemy.health <= 0) {endBattle()};
 }
 
 var enemyActs = function () {
@@ -229,12 +228,16 @@ var resolveActions = function () {
     if (cardsInFlow[0] != "empty" && cardsInFlow[1] != "empty" && cardsInFlow[2] != "empty") {
         executeFlow();
         resetEnemyShields();
-        enemyActs();
-        resetPlayerShields();
-        discardHand();
-        emptyFlow();
-        setTimeout(dealDeck, 1000);
-        pickAction();
+        if (currentEnemy.health > 0) {
+            enemyActs();
+            resetPlayerShields();
+            discardHand();
+            emptyFlow();
+            setTimeout(dealDeck, 1000);
+            pickAction();
+        } else {
+            endBattle();
+        }
     } else {
         alert("Are you forgetting something?");
     }
