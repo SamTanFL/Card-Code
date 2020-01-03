@@ -65,7 +65,7 @@ var cardsInDiscard = [];
 var enemies = {
     normal: [
     {
-        name: "Some Long String",
+        name: "Mr.Sticks",
         health: 20,
         maxHealth: 20,
         shields: 0,
@@ -76,7 +76,7 @@ var enemies = {
         }
     },
     {
-        name: "Some Floaty Floats",
+        name: "Mrs.Sticks",
         health: 30,
         maxHealth: 30,
         shields: 0,
@@ -90,12 +90,13 @@ var enemies = {
 
 var currentEnemy;
 var currentActions;
+var turnAction;
 
 
 //Actions that the enemies can take will be stored here in an object for the different types
 var enemyActions = {
     normal: [
-    [[0, 5], [1, 5], [2, 5, 5]],//First enemy patterns. the first number denotes the type
+    [[0, 5], [1, 5], [2, 4, 4]],//First enemy patterns. the first number denotes the type
     [[0, 3], [1, 8], [2, 4, 8]] //2nd enemy's pattern. more defensive.
     ],
     elites: [],

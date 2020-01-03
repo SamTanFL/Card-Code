@@ -19,11 +19,11 @@ var battleScreen = function () {
     battleScreenDiv.appendChild(row2Div);
     var playerStatDiv = document.createElement("div");
     playerStatDiv.classList.add("col", "col-2", "offset-2", "playerDis")
-    playerStatDiv.innerText = `HP : ${playerSession.health}`;
+    playerStatDiv.innerText = `HP : ${playerSession.health}\nShield : ${playerSession.shields}`;
     row2Div.appendChild(playerStatDiv);
     var enemyStatDiv = document.createElement("div");
     enemyStatDiv.classList.add("col", "col-2", "offset-3", "enemyDis")
-    enemyStatDiv.innerText = `${currentEnemy.name}\nHP : ${currentEnemy.health}`;
+    enemyStatDiv.innerText = `${currentEnemy.name}\nHP : ${currentEnemy.health}\nShield : ${currentEnemy.shields}`;
     row2Div.appendChild(enemyStatDiv);
     var row3Div = document.createElement("div");
     row3Div.classList.add("row");

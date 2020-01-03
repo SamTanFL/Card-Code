@@ -3,6 +3,8 @@
 var initBattle = function () {
     var enemyTemp = JSON.parse(JSON.stringify(enemies.normal)); //clones the array
     currentEnemy = enemyTemp[0]; //needs a randomizer to randomise which enemy is picked
+    currentActions = enemyActions.normal[currentEnemy.enemyID];
+    pickAction();
     shuffleSess2Deck();
 }
 
@@ -14,13 +16,13 @@ var createSession = function () {
 
 var playerHPUpdate = function () {
     var playerDis = document.querySelector(".playerDis");
-    playerDis.innerText = `HP : ${playerSession.health}`;
+    playerDis.innerText = `HP : ${playerSession.health}\nShield: ${playerSession.shields}`;
 }
 
 var enemyHPUpdate = function () {
     var enemyDis = document.querySelector(".enemyDis");
     if (currentEnemy.health < 0) {currentEnemy.health = 0;}
-    enemyDis.innerText = `${currentEnemy.name}\nHP : ${currentEnemy.health}`;
+    enemyDis.innerText = `${currentEnemy.name}\nHP : ${currentEnemy.health}\nShield : ${currentEnemy.shields}`;
 }
 
 //Deck Stuffs ---------------------------------------------------------------------------------------------
@@ -134,27 +136,26 @@ var flowToHand = function (event) {
 
 
 //Combat Stuffs---------------------------------------------------------------------------------------------
-
+//does the actions of the cards you picked to play
 var executeFlow = function () {
     for (var i = 0; i < 3; i++) {
         var cardId = parseInt(cardsInFlow[i]);
         var card = cards[cardId];
         switch (card.cardType) {
-            case 1:
-                if (currentEnemy.shields < 0) { currentEnemy.shields = 0};
+            case 1: //1s are normal flat damage attacks
+                if (currentEnemy.shields < 0) {currentEnemy.shields = 0};
                 currentEnemy.shields = currentEnemy.shields - card.cardEff;
                 if (currentEnemy.shields < 0) {
                     currentEnemy.health = currentEnemy.health + currentEnemy.shields};
                 enemyHPUpdate();
             break;
-            case 2:
-                if (playerSession.shields < 0) {playerSession.shields = 0};
+            case 2: // 2s are blocks
                 playerSession.shields = playerSession.shields + card.cardEff;
                 playerHPUpdate();
             break;
-            case "Multi":
+            case "Multi": //a different kind of card that does multiple strikes
+                if (currentEnemy.shields < 0) {currentEnemy.shields = 0};
                 for (i = 0; i < card.cardAdd; i++) {
-                    if (currentEnemy.shields < 0) {currentEnemy.shields = 0};
                     currentEnemy.shields = currentEnemy.shields - card.cardEff;
                 };
                 if (currentEnemy.shields < 0) {
@@ -164,22 +165,60 @@ var executeFlow = function () {
             break;
             default:
                 console.log("something went wrong in executeFlow");
-    }; // <<=============end of switch bracket
+        }; // <<=============end of switch bracket
     } //    <<==============end of the for loop bracket
-    if (currentEnemy.health <= 0) {
-        endBattle();
-    }
+    if (currentEnemy.health <= 0) {endBattle()};
 }
 
+var enemyActs = function () {
+    switch (turnAction[0]) {
+        case 0:
+            if (playerSession.shields < 0) {playerSession.shields = 0};
+            playerSession.shields = playerSession.shields - turnAction[1];
+            if (playerSession.shields < 0) {
+                playerSession.health = playerSession.health + playerSession.shields;
+            };
+            playerHPUpdate();
+        break;
+        case 1:
+            if (currentEnemy.shields < 0) { currentEnemy.shields = 0};
+            currentEnemy.shields = currentEnemy.shields + turnAction[1];
+            enemyHPUpdate();
+        break;
+        case 2:
+             if (playerSession.shields < 0) {playerSession.shields = 0};
+            playerSession.shields = playerSession.shields - turnAction[1];
+            if (playerSession.shields < 0) {
+                playerSession.health = playerSession.health + playerSession.shields;
+            };
+            playerHPUpdate();
+            if (currentEnemy.shields < 0) { currentEnemy.shields = 0};
+            currentEnemy.shields = currentEnemy.shields + turnAction[2];
+            enemyHPUpdate();
+        break;
+        default:
+            console.log("something went wrong in enemyActions function")
+    } // <<============switch's closing bracket
+} // <<==================the whole function's closing bracket
 
 
+//function to decide what the enemy is doing this turn
+var pickAction = function () {
+    ranNumGen(currentActions.length);
+    turnAction = currentActions[ranNum];
+}
 
+//shields reset every turn so heres the function that does that for the player
+var resetPlayerShields = function () {
+    playerSession.shields = 0;
+    setTimeout(playerHPUpdate, 1500);
+}
 
-
-
-
-
-
+//resets for enemy
+var resetEnemyShields = function () {
+    currentEnemy.shields = 0;
+    setTimeout(enemyHPUpdate, 1500);
+}
 
 var endBattle = function () {
     console.log("enemy is dead");
@@ -187,10 +226,18 @@ var endBattle = function () {
 }
 
 var resolveActions = function () {
-    executeFlow();
-    discardHand();
-    emptyFlow();
-    setTimeout(dealDeck, 1000);
+    if (cardsInFlow[0] != "empty" && cardsInFlow[1] != "empty" && cardsInFlow[2] != "empty") {
+        executeFlow();
+        resetEnemyShields();
+        enemyActs();
+        resetPlayerShields();
+        discardHand();
+        emptyFlow();
+        setTimeout(dealDeck, 1000);
+        pickAction();
+    } else {
+        alert("Are you forgetting something?");
+    }
 }
 
 
