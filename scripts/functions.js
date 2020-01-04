@@ -1,12 +1,32 @@
 //MISC STUFFS ----------------------------------------------------------------------------------------------
 //Initiates the battle variables
 var initBattle = function () {
-    var enemyTemp = JSON.parse(JSON.stringify(enemies.normal)); //clones the array
-    ranNumGen(enemyTemp.length)
-    currentEnemy = enemyTemp[ranNum];
-    currentActions = enemyActions.normal[currentEnemy.enemyID];
-    pickAction();
-    shuffleSess2Deck();
+    if (mapLayout[mapPosition] == 0) {
+        var enemyTemp = JSON.parse(JSON.stringify(enemies.normal)); //clones the array
+        ranNumGen(enemyTemp.length);
+        currentEnemy = enemyTemp[ranNum];
+        currentActions = enemyActions.normal[currentEnemy.enemyID];
+        pickAction();
+        shuffleSess2Deck();
+    } else if (mapLayout[mapPosition] == 1) {
+        var enemyTemp = JSON.parse(JSON.stringify(enemies.elites));
+        ranNumGen(enemyTemp.length);
+        currentEnemy = enemyTemp[ranNum];
+        currentActions = enemyActions.elites[currentEnemy.enemyID];
+        pickAction();
+        shuffleSess2Deck();
+    } else if (mapLayout[mapPosition] == 2) {
+        var enemyTemp = JSON.parse(JSON.stringify(enemies.bosses));
+        ranNumGen(enemyTemp.length);
+        currentEnemy = enemyTemp[ranNum];
+        currentActions = enemyActions.bosses[currentEnemy.enemyID];
+        pickAction();
+        shuffleSess2Deck();
+    } else if (mapLayout[mapPosition] == 3) {
+        console.log("You should be resting");
+    } else if (mapLayout[mapPosition] == 4) {
+        console.log("something random should happen");
+    }
 }
 
 var createSession = function () {
@@ -25,6 +45,27 @@ var enemyHPUpdate = function () {
     if (currentEnemy.health < 0) {currentEnemy.health = 0;}
     enemyDis.innerText = `${currentEnemy.name}\nHP : ${currentEnemy.health}\nShield : ${currentEnemy.shields}`;
 }
+
+//Map Stuffs------------------------------------------------------------------------------------------------
+//the function that is called when you click on a map node
+var mapNodeClick = function () {
+    if (this.attributes.position.textContent == mapPosition) {
+        initBattle();
+        battleScreen();
+    }
+}
+
+
+//maybe I'll try to add some CSS stuff too
+var mapNodeHover = function () {
+
+}
+
+
+
+
+
+
 
 //Deck Stuffs ---------------------------------------------------------------------------------------------
 //Every New game that starts this is used to make the starting deck.
@@ -170,6 +211,7 @@ var executeFlow = function () {
     } //    <<==============end of the for loop bracket
 }
 
+//executes the enemies' actions
 var enemyActs = function () {
     switch (turnAction[0]) {
         case 0:
@@ -222,6 +264,7 @@ var resetEnemyShields = function () {
 
 var endBattle = function () {
     console.log("enemy is dead");
+    mapPosition++;
 }
 
 var resolveActions = function () {

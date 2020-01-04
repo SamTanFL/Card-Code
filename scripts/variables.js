@@ -98,8 +98,32 @@ var enemies = {
         }
     }
     ],
-    elites: [],
-    bosses: []
+    elites: [
+    {
+        name: "Bigus Badus",
+        health: 50,
+        maxHealth: 50,
+        shields: 0,
+        enemyID: 0,
+        status: {
+            debuff: [],
+            buff: []
+        }
+    }
+    ],
+    bosses: [
+    {
+        name: "The Great Round One",
+        health: 314.159,
+        maxHealth: 314.159,
+        shields: 0,
+        enemyID: 0,
+        status: {
+            debuff: [],
+            buff: []
+        }
+    }
+    ]
 };
 
 
@@ -128,7 +152,7 @@ var enemyActions = {
 //=======================================Map Stuffs=========================================================
 var mapLayout = [0, 0, 1, 3, 0, 4, 0, 1, 3, 2] // may try to randomize & have multiple paths in the future.
 
-
+var mapPosition = 0; //to track where the player is.
 
 
 

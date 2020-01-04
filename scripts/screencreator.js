@@ -69,6 +69,47 @@ var battleScreen = function () {
     setTimeout(dealDeck, 500);
 }
 
+//Map Screen Creation
+var createMapScreen = function () {
+    container.innerHTML = "";
+    var mapOverallScreen = document.createElement("div");
+    mapOverallScreen.classList.add("mapScreenBG", "row", "col-12");
+    container.appendChild(mapOverallScreen);
+    var mapPath = document.createElement("div");
+    mapPath.classList.add("mapPath", "col-10", "offset-1");
+    mapOverallScreen.appendChild(mapPath);
+    for (i = 0; i < mapLayout.length; i++) {
+        var mapNode = document.createElement("div");
+        mapNode.classList.add("col-1", "mapNode", "notCleared", "mapNo" + i);
+        switch (mapLayout[i]) {
+            case 0:
+                mapNode.classList.add("normal");
+            break;
+            case 1:
+                mapNode.classList.add("elite");
+            break;
+            case 2:
+                mapNode.classList.add("boss");
+            break;
+            case 3:
+                mapNode.classList.add("rest");
+            break;
+            case 4:
+                mapNode.classList.add("randomEvent");
+            break;
+            default:
+                console.log("something went wrong with the mapLayout");
+        } // Switch Statement Closing Bracket
+        mapNode.setAttribute("position", i);
+        mapNode.addEventListener("click", mapNodeClick);
+        mapNode.addEventListener("hover", mapNodeHover);
+        mapPath.appendChild(mapNode);
+    } // For loop closing Brackets
+}
+
+
+
+
 //Main Menu Creation
 var createMainMenu = function () {
     container.innerHTML = "";
@@ -93,6 +134,5 @@ var createMainMenu = function () {
     helpButton.innerText = "Instructions"
     row3Div.appendChild(helpButton);
     document.querySelector(".startButton").addEventListener("click", createSession);
-    document.querySelector(".startButton").addEventListener("click", initBattle);
-    document.querySelector(".startButton").addEventListener("click", battleScreen);
+    document.querySelector(".startButton").addEventListener("click", createMapScreen);
 }
