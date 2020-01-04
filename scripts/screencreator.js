@@ -101,6 +101,10 @@ var createMapScreen = function () {
                 console.log("something went wrong with the mapLayout");
         } // Switch Statement Closing Bracket
         mapNode.setAttribute("position", i);
+        var nodePositionInt = parseInt(mapNode.attributes.position.textContent);
+        if (nodePositionInt < mapPosition) {
+            mapNode.classList.remove("notCleared");
+        }
         mapNode.addEventListener("click", mapNodeClick);
         mapNode.addEventListener("hover", mapNodeHover);
         mapPath.appendChild(mapNode);

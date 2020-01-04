@@ -139,8 +139,12 @@ var enemyActions = {
     [[0, 4], [1, 8], [2, 4, 8]], //Mrs.Stick's actions
     [[0, 10], [0, 10], [2, 8, 3]] //Stick Dog's actions
     ],
-    elites: [],
-    bosses: []
+    elites: [
+    [[0, 10], [1, 10], [2, 6, 6]] //bigus badus actions
+    ],
+    bosses: [
+    [[0,10], [0,10], [1,10], [2,8,8]] //Round One's actions
+    ]
 }
 
 

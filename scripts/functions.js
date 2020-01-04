@@ -49,9 +49,16 @@ var enemyHPUpdate = function () {
 //Map Stuffs------------------------------------------------------------------------------------------------
 //the function that is called when you click on a map node
 var mapNodeClick = function () {
-    if (this.attributes.position.textContent == mapPosition) {
+    var mapType = parseInt(this.attributes.position.textContent);
+    if (mapType == mapPosition && mapLayout[mapPosition] < 3) {
         initBattle();
         battleScreen();
+    } else if (mapType == mapPosition && mapLayout[mapPosition] == 3) {
+        console.log("you should be resting?");
+    } else if (mapType == mapPosition && mapLayout[mapPosition] == 4) {
+        console.log("Something random happens");
+    } else {
+        console.log("something is broken");
     }
 }
 
@@ -263,8 +270,12 @@ var resetEnemyShields = function () {
 }
 
 var endBattle = function () {
+    alert("The Enemy Has Died");
+    cardsInFlow = [ "empty", "empty", "empty"];
+    cardsInFlowPosition = ["empty", "empty", "empty"];
     console.log("enemy is dead");
     mapPosition++;
+    setTimeout(createMapScreen);
 }
 
 var resolveActions = function () {
