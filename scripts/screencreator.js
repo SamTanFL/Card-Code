@@ -11,9 +11,13 @@ var battleScreen = function () {
     var row1Div = document.createElement("div");
     row1Div.classList.add("row", "battleScreenTop");
     battleScreenDiv.appendChild(row1Div);
-    var screenImg = document.createElement("img");
-    screenImg.setAttribute("src", "https://1001freedownloads.s3.amazonaws.com/vector/thumb/63319/Placeholder.png");
-    row1Div.appendChild(screenImg);
+    var playerImg = document.createElement("img");
+    playerImg.classList.add("playerImg");
+    playerImg.setAttribute("src", "img/player.png");
+    row1Div.appendChild(playerImg);
+    var enemyImg = document.createElement("img");
+    enemyImg.classList.add("enemyImg");
+    row1Div.appendChild(enemyImg);
     var row2Div = document.createElement("div")
     row2Div.classList.add("row");
     battleScreenDiv.appendChild(row2Div);

@@ -5,6 +5,7 @@ var player = {
     maxHealth: 100,
     shields: 0,
     naturalDraw: 5,
+    addDraw: 0,
     money: 0, //might use at a later time
     playerState: {
         debuff: [],

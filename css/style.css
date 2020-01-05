@@ -37,9 +37,10 @@ body div div .mapScreenBG {
 }
 
 .mapNode {
-    display: inline-block;
+    display: inline-flex;
     height: 100px;
     border: solid black 2px;
+    margin: 5px;
 }
 
 .cleared {
@@ -80,5 +81,5 @@ body div div .mapScreenBG {
 }
 
 .selected {
-    border: solid blue 2px;
+    border: solid rgba(0, 0, 255, 0.5) 3px;
 }
