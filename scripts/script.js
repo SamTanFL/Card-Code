@@ -42,8 +42,6 @@ document.querySelector(".initGame").addEventListener("click", createMainMenu);
 
 
 
-
-
 //=================================Testing if functions would work===========================================
 /*var gameArray = [["multi", 5], [0]];
 

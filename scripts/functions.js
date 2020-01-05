@@ -29,9 +29,11 @@ var initBattle = function () {
     }
 }
 
+//creates a clone of the defaults and resets player position
 var createSession = function () {
     playerSession = JSON.parse(JSON.stringify(player));
-    createStartingDeck();
+    cardsInSession = JSON.parse(JSON.stringify(cardStartDefault));
+    mapPosition = 0;
 }
 
 
@@ -75,12 +77,6 @@ var mapNodeHover = function () {
 
 
 //Deck Stuffs ---------------------------------------------------------------------------------------------
-//Every New game that starts this is used to make the starting deck.
-var createStartingDeck = function () {
-    cardsInSession = JSON.parse(JSON.stringify(cardStartDefault));
-}
-
-
 //empties the flow area & resets flow
 var emptyFlow = function () {
     flowArea = document.querySelectorAll(".flow");
@@ -182,6 +178,41 @@ var flowToHand = function (event) {
     }
 }
 
+//---------------------Card Drafting stuffs---------------------------\\
+//this helps identify and pick the card you wish to draft
+var cardDraftSelectEvent = function (event) {
+    var cardDraftPosition = parseInt(this.attributes.position.textContent);
+    cardToDraft = parseInt(cardsInDraft[cardDraftPosition]);
+}
+
+
+//confirm button event listener function
+var cardDraftConfirmEvent = function () {
+    cardsInSession.push(cardToDraft);
+
+    console.log("confirm the card selection to your deck");
+}
+
+//to skip adding a card
+var cardDraftSkipEvent = function () {
+    //add stuff later
+    console.log("no good cards?");
+}
+
+//Randomly generates which card you can draft
+var cardDraftGeneration = function () {
+    var cardDraftBG = document.querySelector(".cardDraftBG");
+    while (cardsInDraft.length < 3) {
+        ranNumGen(cards.length);
+        if (ranNum !== cardsInDraft[0] && ranNum !== cardsInDraft[1] && ranNum !== cardsInDraft[2]) {
+            cardsInDraft.push(ranNum);
+        } // closing bracket for If Statement
+    } // closing bracket for WHILE loop
+    var cardDraft = document.querySelectorAll(".cardDraft");
+    for (var i = 0; i < cardsInDraft.length; i++) {
+        cardDraft[i].classList.add("type" + i);
+    } // closing brackets for I loop
+}
 
 
 //Combat Stuffs---------------------------------------------------------------------------------------------
@@ -260,22 +291,22 @@ var pickAction = function () {
 //shields reset every turn so heres the function that does that for the player
 var resetPlayerShields = function () {
     playerSession.shields = 0;
-    setTimeout(playerHPUpdate, 1500);
+    setTimeout(playerHPUpdate);
 }
 
 //resets for enemy
 var resetEnemyShields = function () {
     currentEnemy.shields = 0;
-    setTimeout(enemyHPUpdate, 1500);
+    setTimeout(enemyHPUpdate);
 }
 
 var endBattle = function () {
     alert("The Enemy Has Died");
     cardsInFlow = [ "empty", "empty", "empty"];
     cardsInFlowPosition = ["empty", "empty", "empty"];
-    console.log("enemy is dead");
+    cardDraftScreen();
+    cardDraftGeneration();
     mapPosition++;
-    setTimeout(createMapScreen);
 }
 
 var resolveActions = function () {

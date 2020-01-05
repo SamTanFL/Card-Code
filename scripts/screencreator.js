@@ -104,6 +104,7 @@ var createMapScreen = function () {
         var nodePositionInt = parseInt(mapNode.attributes.position.textContent);
         if (nodePositionInt < mapPosition) {
             mapNode.classList.remove("notCleared");
+            mapNode.classList.add("cleared");
         }
         mapNode.addEventListener("click", mapNodeClick);
         mapNode.addEventListener("hover", mapNodeHover);
@@ -139,4 +140,40 @@ var createMainMenu = function () {
     row3Div.appendChild(helpButton);
     document.querySelector(".startButton").addEventListener("click", createSession);
     document.querySelector(".startButton").addEventListener("click", createMapScreen);
+}
+
+
+//create card draft screen popup to append when needed
+var cardDraftScreen = function () {
+    var cardDraftPopupBG = document.createElement("div");
+    cardDraftPopupBG.classList.add("cardDraftBG");
+    container.appendChild(cardDraftPopupBG);
+    var cardDraftScreen = document.createElement("div");
+    cardDraftScreen.classList.add("cardDraftScreen");
+    cardDraftPopupBG.appendChild(cardDraftScreen);
+    var cardDraftHeader = document.createElement("div");
+    cardDraftHeader.innerText = "Add A Card To Your Deck";
+    cardDraftHeader.classList.add("cardDraftHeader");
+    cardDraftScreen.appendChild(cardDraftHeader);
+    var cardDraftSelection = document.createElement("div");
+    cardDraftSelection.classList.add("selectionContainer");
+    cardDraftScreen.appendChild(cardDraftSelection);
+    for (var i = 0; i < 3; i++) {
+        var cardDraft = document.createElement("div");
+        cardDraft.classList.add("cardDraft");
+        cardDraft.id = "draft" + i;
+        cardDraft.setAttribute("position", i);
+        cardDraft.addEventListener("click", cardDraftSelectEvent);
+        cardDraftSelection.appendChild(cardDraft);
+    } //for loop closing bracket
+    var draftConfirmButton = document.createElement("button");
+    draftConfirmButton.innerText = "Confirm your Selection";
+    draftConfirmButton.classList.add("draftConfirmButton");
+    draftConfirmButton.addEventListener("click", cardDraftConfirmEvent);
+    cardDraftScreen.appendChild(draftConfirmButton);
+    var draftSkipButton = document.createElement("button");
+    draftSkipButton.innerText = "Skip Adding A Card";
+    draftSkipButton.classList.add("draftSkipButton");
+    draftSkipButton.addEventListener("click", cardDraftSkipEvent);
+    cardDraftScreen.appendChild(draftSkipButton);
 }

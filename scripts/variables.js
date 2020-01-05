@@ -57,6 +57,8 @@ var cardsInHand = [];
 var cardsInFlow = [ "empty", "empty", "empty"]; //for referencing what cards do
 var cardsInFlowPosition = ["empty", "empty", "empty"]; //used for keeping track where cards came from
 var cardsInDiscard = [];
+var cardsInDraft = [];
+var cardToDraft;
 
 
 
