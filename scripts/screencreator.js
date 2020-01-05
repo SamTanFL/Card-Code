@@ -143,7 +143,7 @@ var createMainMenu = function () {
 //create card draft screen popup to append when needed
 var cardDraftScreen = function () {
     var cardDraftPopupBG = document.createElement("div");
-    cardDraftPopupBG.classList.add("cardDraftBG");
+    cardDraftPopupBG.classList.add("cardDraftBG", "background");
     container.appendChild(cardDraftPopupBG);
     var cardDraftScreen = document.createElement("div");
     cardDraftScreen.classList.add("cardDraftScreen");
@@ -173,4 +173,13 @@ var cardDraftScreen = function () {
     draftSkipButton.classList.add("draftSkipButton");
     draftSkipButton.addEventListener("click", cardDraftSkipEvent);
     cardDraftScreen.appendChild(draftSkipButton);
+}
+
+var createRestScreen = function () {
+    var restScreenBG = document.createElement("div");
+    restScreenBG.classList.add("restScreenBG", "background");
+    container.appendChild(restScreenBG);
+    var restScreenMain = document.createElement("div");
+    restScreenMain.classList.add("restScreenMain", "col-10", "row", "offset-1");
+    restScreenBG.appendChild(restScreenMain);
 }

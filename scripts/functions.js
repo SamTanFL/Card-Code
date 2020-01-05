@@ -56,9 +56,15 @@ var mapNodeClick = function () {
         initBattle();
         battleScreen();
     } else if (mapType == mapPosition && mapLayout[mapPosition] == 3) {
-        console.log("you should be resting?");
+        playerSession.health = playerSession.health + (playerSession.maxHealth * 0.25);
+        mapPosition++;
+        createMapScreen();
     } else if (mapType == mapPosition && mapLayout[mapPosition] == 4) {
         console.log("Something random happens");
+        var randomOptions = [0, 1, 3];
+        ranNumGen(randomOptions.length);
+        var randomOutcome = randomOptions[ranNum];
+        //i need to finish this
     } else {
         console.log("something is broken");
     }

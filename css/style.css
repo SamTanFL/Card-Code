@@ -1,3 +1,9 @@
+body {
+    font-family: georgia;
+}
+
+
+
 div div.beginning-screen div.row{
     height: 600px;
     align-items: center;
@@ -52,7 +58,7 @@ body div div .mapScreenBG {
     width: 100px;
 }
 
-.cardDraftBG {
+.background {
     display: flex;
     width: 100%;
     height: 100%;
@@ -92,6 +98,8 @@ body div div .mapScreenBG {
     display: inline-flex;
     height: 150px;
     width: 100px;
+    border: 2px solid black;
+    margin: 5px 5px;
 }
 
 .executeButton {
@@ -103,7 +111,6 @@ body div div .mapScreenBG {
     height: 30px;
 }
 
-.enemyImg {
-    position: absolute;
-    right: 0;
+.enemyImg img{
+    float: right;
 }
