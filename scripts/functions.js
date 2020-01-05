@@ -181,6 +181,11 @@ var flowToHand = function (event) {
 //---------------------Card Drafting stuffs---------------------------\\
 //this helps identify and pick the card you wish to draft
 var cardDraftSelectEvent = function (event) {
+    var cardDraftCards = document.querySelectorAll(".cardDraft");
+    for (var i = 0; i < 3; i++) {
+        cardDraftCards[i].classList.remove("selected");
+    }
+    this.classList.add("selected");
     var cardDraftPosition = parseInt(this.attributes.position.textContent);
     cardToDraft = parseInt(cardsInDraft[cardDraftPosition]);
 }
@@ -188,14 +193,19 @@ var cardDraftSelectEvent = function (event) {
 
 //confirm button event listener function
 var cardDraftConfirmEvent = function () {
-    cardsInSession.push(cardToDraft);
-
-    console.log("confirm the card selection to your deck");
+    if (cardToDraft !== NaN) {
+        cardsInSession.push(cardToDraft);
+        createMapScreen();
+        cardsInDraft = [];
+        cardToDraft = NaN;
+    }
+        console.log("confirm the card selection to your deck");
 }
 
 //to skip adding a card
 var cardDraftSkipEvent = function () {
-    //add stuff later
+    createMapScreen();
+    cardsInDraft = [];
     console.log("no good cards?");
 }
 
@@ -210,7 +220,7 @@ var cardDraftGeneration = function () {
     } // closing bracket for WHILE loop
     var cardDraft = document.querySelectorAll(".cardDraft");
     for (var i = 0; i < cardsInDraft.length; i++) {
-        cardDraft[i].classList.add("type" + i);
+        cardDraft[i].classList.add("type" + cardsInDraft[i]);
     } // closing brackets for I loop
 }
 

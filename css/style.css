@@ -52,6 +52,33 @@ body div div .mapScreenBG {
     width: 100%;
     height: 100%;
     position: absolute;
-    backdrop-filter: blur(10px);
+    top: 0px;
+    left: 0px;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
     background: rgba(0,0,0,0.5);
+}
+
+.selectionContainer {
+    width: 100%;
+}
+
+.cardDraft {
+    display: inline-flex;
+    height: 150px;
+    width: 100px;
+    margin: 5px;
+    border: solid black 2px;
+}
+
+.cardDraftHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+
+.selected {
+    border: solid blue 2px;
 }
