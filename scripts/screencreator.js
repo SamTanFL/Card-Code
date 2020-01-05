@@ -17,8 +17,9 @@ var battleScreen = function () {
     row1Div.appendChild(playerImg);
     var enemyImg = document.createElement("img");
     enemyImg.classList.add("enemyImg");
+    enemyImg.setAttribute("src", "img/enemy" + currentEnemy.imgID + ".png");
     row1Div.appendChild(enemyImg);
-    var row2Div = document.createElement("div")
+    var row2Div = document.createElement("div");
     row2Div.classList.add("row");
     battleScreenDiv.appendChild(row2Div);
     var playerStatDiv = document.createElement("div");
@@ -38,8 +39,8 @@ var battleScreen = function () {
     actionsFlow.appendChild(flowRow);
     flowRow.classList.add("row", "flowRow");
     for (i = 0; i < 3; i++) {
-        var flowCol = document.createElement("span");
-        flowCol.classList.add("col", "col-1", "flow", "empty");
+        var flowCol = document.createElement("div");
+        flowCol.classList.add("col", "flow", "empty");
         flowCol.setAttribute("id", "flow" + i);
         flowCol.setAttribute("state", "empty");
         flowCol.setAttribute("position", i);
@@ -47,8 +48,9 @@ var battleScreen = function () {
         flowRow.appendChild(flowCol);
     }
     row3Div.appendChild(actionsFlow);
-    var actionButton = document.createElement("button");
+    var actionButton = document.createElement("div");
     actionButton.innerText = "Execute";
+    actionButton.classList.add("col", "executeButton", "col-1");
     actionButton.addEventListener("click", resolveActions);
     row3Div.appendChild(actionButton)
     var row4Div = document.createElement("div");
@@ -57,20 +59,11 @@ var battleScreen = function () {
     var cardsDisplay = document.createElement("div");
     cardsDisplay.classList.add("cardsInHand");
     row4Div.appendChild(cardsDisplay);
-    for (i = 0; i < 10; i++){
-        var card = document.createElement("div")
-        card.classList.add("col", "col-1", "cards", "empty");
-        card.setAttribute("id", "card" + i);
-        card.setAttribute("state", "empty");
-        card.setAttribute("position", i);
-        card.innerText = "test";
-        card.addEventListener("click", getSlotData);
-        cardsDisplay.appendChild(card);
-        }
     var deckDisplay = document.createElement("div");
     deckDisplay.classList.add("col", "col-1", "cardDeck");
     row4Div.appendChild(deckDisplay);
-    setTimeout(dealDeck, 500);
+    calculateDraw();
+    dealCards(turnDraw);
 }
 
 //Map Screen Creation

@@ -24,12 +24,9 @@ body div div div:nth-child(4) div.col.col-10.cardsInHand {
 }
 
 body div div div:nth-child(4) div.cardsInHand div {
-    display: inline-block;
+    display: inline-flex;
 }
 
-body div div div:nth-child(3) span div {
-    height: 150px;
-}
 
 body div div .mapScreenBG {
     height: 600px;
@@ -46,6 +43,13 @@ body div div .mapScreenBG {
 .cleared {
     backdrop-filter: blur(10px);
     background: rgba(0,0,0,0.5);
+}
+
+.cards {
+    border: solid black 2px;
+    margin: 0 5px;
+    height: 150px;
+    width: 100px;
 }
 
 .cardDraftBG {
@@ -82,4 +86,24 @@ body div div .mapScreenBG {
 
 .selected {
     border: solid rgba(0, 0, 255, 0.5) 3px;
+}
+
+.flow {
+    display: inline-flex;
+    height: 150px;
+    width: 100px;
+}
+
+.executeButton {
+    display: inline-flex;
+    background: grey;
+    color: white;
+    text-align: center;
+    border: rgba(0, 0, 0, 0.6) solid 1px;
+    height: 30px;
+}
+
+.enemyImg {
+    position: absolute;
+    right: 0;
 }

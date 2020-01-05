@@ -1,11 +1,34 @@
 .empty {
     background: url("../img/empty.png");
+    background-repeat: no-repeat;
 }
 
 .type0 {
     background: url("../img/00cardPlaceholder.png");
+    background-repeat: no-repeat;
 }
 
 .type1 {
     background: url("../img/01cardPlaceholder.png");
+    background-repeat: no-repeat;
+}
+
+.type2 {
+    background: url("../img/02cardPlaceholder.png");
+    background-repeat: no-repeat;
+}
+
+.type3 {
+    background: url("../img/03cardPlaceholder.png");
+    background-repeat: no-repeat;
+}
+
+.type4 {
+    background: url("../img/04cardPlaceholder.png");
+    background-repeat: no-repeat;
+}
+
+.type5 {
+    background: url("../img/05cardPlaceholder.png");
+    background-repeat: no-repeat;
 }

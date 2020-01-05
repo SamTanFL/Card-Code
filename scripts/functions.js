@@ -132,26 +132,15 @@ var handToFlow = function (cardPosition) {
     }
 }
 
-//Moves cardsSession to deck.
-var dealDeck = function () {
-    for (var i = 0; i < playerSession.naturalDraw; i++) {
-        if (cardsInDeck == 0) {shuffleDiscard2Deck()};
-        var card = document.querySelectorAll(".cards");
-        cardsInHand.push(cardsInDeck.shift());
-        card[i].setAttribute("state", "" + cardsInHand[i]);
-        card[i].classList.add("type" + cardsInHand[i]);
-        card[i].classList.remove("empty");
-    };
-}
-
 //Empties the hand into the discard pile
 var discardHand = function () {
     var cardsHand = document.querySelectorAll(".cards");
     var handSize = cardsInHand.length
     for (var i = 0; i < handSize; i++) {
         cardsInDiscard.push(cardsInHand.shift());
-        cardsHand[i].attributes.class.textContent = "col col-1 cards empty";
     }
+    var cardsDisplay = document.querySelector(".cardsInHand");
+    cardsDisplay.innerHTML = "";
 }
 
 var shuffleDiscard2Deck = function () {
@@ -177,6 +166,30 @@ var flowToHand = function (event) {
         console.log("do nuthing");
     }
 }
+
+//card dealing function.
+var dealCards = function (draws) {
+    var cardsDisplay = document.querySelector(".cardsInHand");
+    cardsDisplay.innerHTML = "";
+    for (i = 0; i < draws; i++) {
+        if (cardsInDeck == 0) {shuffleDiscard2Deck()};
+        cardsInHand.push(cardsInDeck.shift());
+        var card = document.createElement("div");
+        card.classList.add("col", "cards", "type" + cardsInHand[i]);
+        card.setAttribute("state", cardsInHand[i]);
+        card.setAttribute("id", "card" + i);
+        card.setAttribute("position", i);
+        card.addEventListener("click", getSlotData);
+        cardsDisplay.appendChild(card);
+    }
+}
+
+//calculate how many cards to draw;
+var calculateDraw = function () {
+    turnDraw = parseInt(playerSession.naturalDraw) + parseInt(playerSession.addDraw);
+    playerSession.addDraw = 0;
+}
+
 
 //---------------------Card Drafting stuffs---------------------------\\
 //this helps identify and pick the card you wish to draft
@@ -328,7 +341,7 @@ var resolveActions = function () {
             resetPlayerShields();
             discardHand();
             emptyFlow();
-            setTimeout(dealDeck, 1000);
+            setTimeout(function(){dealCards(turnDraw)}, 1000);
             pickAction();
         } else {
             endBattle();

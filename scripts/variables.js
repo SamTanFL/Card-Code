@@ -14,6 +14,8 @@ var player = {
     progress: 0
 };
 
+var turnDraw;
+
 var playerSession; //used so that to restart I can just clone the player stats again
 
 
@@ -73,6 +75,7 @@ var enemies = {
         maxHealth: 30,
         shields: 0,
         enemyID: 0,
+        imgID: 0,
         status: {
             debuff: [],
             buff: []
@@ -84,6 +87,7 @@ var enemies = {
         maxHealth: 30,
         shields: 0,
         enemyID: 1,
+        imgID: 1,
         status: {
             debuff: [],
             buff: []
@@ -95,6 +99,7 @@ var enemies = {
         maxHealth: 25,
         shields: 0,
         enemyID: 2,
+        imgID: 2,
         status: {
             debuff: [],
             buff: []
@@ -108,6 +113,7 @@ var enemies = {
         maxHealth: 50,
         shields: 0,
         enemyID: 0,
+        imgID: 3,
         status: {
             debuff: [],
             buff: []
@@ -121,6 +127,7 @@ var enemies = {
         maxHealth: 314.159,
         shields: 0,
         enemyID: 0,
+        imgID: 4,
         status: {
             debuff: [],
             buff: []
