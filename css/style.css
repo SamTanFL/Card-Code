@@ -117,12 +117,17 @@ body div div .mapScreenBG {
     width: 100%;
 }
 
-.attack {
+body > div > div > div.row.battleScreenTop > div > img.attack {
     height: 25px;
     width: 25px;
 }
 
-.shield {
+body > div > div > div.row.battleScreenTop > div > img.shield {
     height: 25px;
     width: 25px;
+}
+
+body > div > div > div.row.battleScreenTop > div {
+    display: flex;
+    align-items: flex-end;
 }
