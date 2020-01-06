@@ -400,10 +400,15 @@ var updateEnemyActions = function () {
 
 //function for counting down the status effect turns
 var statusTurns = function () {
+    var enemyStatus = document.querySelector(".status")
+    if (currentEnemy.status.debuff[0][0] == "weak"); {
+        enemyStatus.setAttribute("src", "img/weak.png");
+    }
     enemyStatusTurns = currentEnemy.status.debuff[0][1];
     enemyStatusTurns--;
     if (enemyStatusTurns <= 0) {
         currentEnemy.status.debuff[0] = "none";
+        enemyStatus.setAttribute("src", "img/fine.png");
     }
 }
 
@@ -442,6 +447,13 @@ var endBattle = function () {
     };
 }
 
+//gameOver check
+var gameoverCheck = function () {
+    if (playerSession.health <= 0) {
+        gameOverScreen();
+    }
+}
+
 var resolveActions = function () {
     if (cardsInFlow[0] != "empty" && cardsInFlow[1] != "empty" && cardsInFlow[2] != "empty") {
         executeFlow();
@@ -457,6 +469,7 @@ var resolveActions = function () {
             statusTurns();
         }
             updateEnemyActions();
+            gameoverCheck();
         } else {
             endBattle();
         }

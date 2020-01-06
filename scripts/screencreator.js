@@ -38,6 +38,10 @@ var battleScreen = function () {
     enemyShdImg.setAttribute("src", "img/shield.png");
     enemyShdImg.classList.add("shield");
     enemyActsContainer.appendChild(enemyShdImg);
+    var enemyStatus = document.createElement("img");
+    enemyStatus.setAttribute("src", "img/fine.png");
+    enemyStatus.classList.add("fine", "status");
+    enemyActsContainer.appendChild(enemyStatus);
     var row2Div = document.createElement("div");
     row2Div.classList.add("row");
     battleScreenDiv.appendChild(row2Div);
@@ -277,4 +281,14 @@ var createInstructions = function () {
     instructionIMG.setAttribute("src", "img/instructions.png");
     instructionIMG.addEventListener("click", createMainMenu)
     instructBG.appendChild(instructionIMG);
+}
+
+var gameOverScreen = function () {
+    var gameOverBG = document.createElement("div");
+    gameOverBG.classList.add("background", "gameOverBG");
+    container.appendChild(gameOverBG);
+    var gameOverImg = document.createElement("img");
+    gameOverImg.setAttribute("src", "img/gameOver.png");
+    gameOverImg.addEventListener("click", createMainMenu);
+    gameOverBG.appendChild(gameOverImg);
 }
