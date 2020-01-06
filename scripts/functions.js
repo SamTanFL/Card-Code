@@ -431,6 +431,8 @@ var endBattle = function () {
     mapPosition++;
     if (mapPosition == mapLayout.length) {
         container.innerHTML = "";
+        cardsInFlow = [ "empty", "empty", "empty"];
+        cardsInFlowPosition = ["empty", "empty", "empty"];
         winnerWinnerScreen();
     } else {
     cardsInFlow = [ "empty", "empty", "empty"];
