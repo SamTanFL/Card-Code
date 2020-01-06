@@ -153,7 +153,8 @@ var createMainMenu = function () {
     row2Div.appendChild(startButton);
     var helpButton = document.createElement("button");
     helpButton.classList.add("helpButton", "col-2", "offset-5");
-    helpButton.innerText = "Instructions"
+    helpButton.innerText = "Instructions";
+    helpButton.addEventListener("click", createInstructions);
     row3Div.appendChild(helpButton);
     document.querySelector(".startButton").addEventListener("click", createSession);
     document.querySelector(".startButton").addEventListener("click", createMapScreen);
@@ -224,6 +225,10 @@ var createRestartPrompt = function () {
     var restartPromptContainer = document.createElement("div");
     restartPromptContainer.classList.add("row", "restartContainer");
     winScreenBG.appendChild(restartPromptContainer);
+    var restartHeader = document.createElement("h1");
+    restartHeader.innerText = "Would you like to restart the Game?"
+    restartHeader.classList.add("restartHeader", "row", "offset-3");
+    restartPromptContainer.appendChild(restartHeader);
     var restartYes = document.createElement("button");
     restartYes.classList.add("row", "offset-5", "restartYes");
     restartYes.innerText = "Yes";
@@ -257,4 +262,15 @@ var winnerScreenNo = function () {
     winScreen.classList.add("row", "col-10", "offset-1", "win");
     winScreen.addEventListener("click", createRestartPrompt);
     winScreenBG.appendChild(winScreen);
+}
+
+var createInstructions = function () {
+    var instructBG = document.createElement("div");
+    instructBG.classList.add("background", "instructBG");
+    container.appendChild(instructBG);
+    var instructionIMG = document.createElement("img");
+    instructionIMG.classList.add("instructions")
+    instructionIMG.setAttribute("src", "img/instructions.png");
+    instructionIMG.addEventListener("click", createMainMenu)
+    instructBG.appendChild(instructionIMG);
 }

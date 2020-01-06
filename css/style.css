@@ -22,6 +22,7 @@ div div.beginning-screen div.row{
 
 body div div div.row.battleScreenTop img {
     height: 260px;
+    margin-top: 10px;
 }
 
 body div div div:nth-child(4) div.col.col-10.cardsInHand {
@@ -148,4 +149,8 @@ body > div > div > div.row.battleScreenTop > div {
 .restartNo {
     width: 100px;
     text-align: center;
+}
+
+.instructions {
+    height: 100%;
 }
