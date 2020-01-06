@@ -299,7 +299,7 @@ var executeFlow = function () {
                 playerSession.shields = playerSession.shields + card.cardEff;
                 playerHPUpdate();
             break;
-            case "Multi": //a different kind of card that does multiple strikes
+            case 3: //a different kind of card that does multiple strikes
                 if (currentEnemy.shields < 0) {currentEnemy.shields = 0};
                 for (i = 0; i < card.cardAdd; i++) {
                     currentEnemy.shields = currentEnemy.shields - card.cardEff;
@@ -309,17 +309,17 @@ var executeFlow = function () {
                 };
                 enemyHPUpdate();
             break;
-            case "Status": //inflicts status
-                if (card.cardAdd[0] == 1) {
+            case 4: //inflicts status
+                if (card.cardAdd[1] == 1) {
                     if (currentEnemy.shields < 0) {currentEnemy.shields = 0};
                     currentEnemy.shields = currentEnemy.shields - card.cardEff;
                     if (currentEnemy.shields < 0) {
                         currentEnemy.health = currentEnemy.health + currentEnemy.shields};
-                    currentEnemy.status.debuff[0] = ["weak", card.cardAdd[1]]
+                    currentEnemy.status.debuff[0] = ["weak", card.cardAdd[0]];
                     enemyHPUpdate();
-                } else if (card.cardAdd[0] == 2) {
+                } else if (card.cardAdd[1] == 2) {
                     playerSession.shields = playerSession.shields + card.cardEff;
-                    currentEnemy.status.debuff[0] = ["weak", card.cardAdd[1]]
+                    currentEnemy.status.debuff[0] = ["weak", card.cardAdd[0]];
                     playerHPUpdate();
                 }
             break;
@@ -400,7 +400,7 @@ var updateEnemyActions = function () {
 
 //function for counting down the status effect turns
 var statusTurns = function () {
-    var enemyStatus = document.querySelector(".status")
+    var enemyStatus = document.querySelector(".status");
     if (currentEnemy.status.debuff[0][0] == "weak"); {
         enemyStatus.setAttribute("src", "img/weak.png");
     }

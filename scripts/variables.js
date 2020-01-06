@@ -46,7 +46,7 @@ var cards = [
     {
         cardUniqueID: 2,
         cardName: "MultiStrike",
-        cardType: "Multi",
+        cardType: 3,
         cardEff: 2,
         cardDesc: "For testing purpose. Can I do it?",
         cardAdd: 3
@@ -70,18 +70,18 @@ var cards = [
     {
         cardUniqueID: 5,
         cardName: "Weaken Att",
-        cardType: "Status",
+        cardType: 4,
         cardEff: 5,
         cardDesc: "Has an additional Effect and weakens enemy",
-        cardAdd: [2, 1]
+        cardAdd: [2, 1] //[0] is duration & [1] is the type
     },
     {
         cardUniqueID: 6,
         cardName: "Weaken Block",
-        cardType: "Status",
+        cardType: 4,
         cardEff: 5,
         cardDesc: "Has an additional Effect and weakens enemy",
-        cardAdd: [2, 2]
+        cardAdd: [2, 2] //[0] is duration & [1] is the type
     }
 ];
 

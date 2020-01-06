@@ -62,3 +62,23 @@
     background: url("../img/mapNode4.png");
     background-repeat: no-repeat;
 }
+
+.normal.cleared {
+    background: url("../img/mapNode0 Cleared.png");
+    background-repeat: no-repeat;
+}
+
+.elite.cleared {
+    background: url("../img/mapNode1 Cleared.png");
+    background-repeat: no-repeat;
+}
+
+.rest.cleared {
+    background: url("../img/mapNode3 Cleared.png");
+    background-repeat: no-repeat;
+}
+
+.randomEvent.cleared {
+    background: url("../img/mapNode4 Cleared.png");
+    background-repeat: no-repeat;
+}
