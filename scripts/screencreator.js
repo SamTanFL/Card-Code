@@ -97,7 +97,7 @@ var createMapScreen = function () {
     mapOverallScreen.appendChild(mapPath);
     for (i = 0; i < mapLayout.length; i++) {
         var mapNode = document.createElement("div");
-        mapNode.classList.add("col-1", "mapNode", "notCleared", "mapNo" + i);
+        mapNode.classList.add("col", "mapNode", "notCleared", "mapNo" + i);
         switch (mapLayout[i]) {
             case 0:
                 mapNode.classList.add("normal");
@@ -213,8 +213,8 @@ var createRestScreen = function () {
     restScreenBG.appendChild(restScreenMain);
     var restImg = document.createElement("img");
     restImg.setAttribute("src", "img/rest.png");
-
     restScreenMain.appendChild(restImg);
+    restImg.addEventListener("click", createMapScreen);
 }
 
 
@@ -225,12 +225,12 @@ var createRestartPrompt = function () {
     restartPromptContainer.classList.add("row", "restartContainer");
     winScreenBG.appendChild(restartPromptContainer);
     var restartYes = document.createElement("button");
-    restartYes.classList.add("col-1", "row", "offset-5", "restartYes");
+    restartYes.classList.add("row", "offset-5", "restartYes");
     restartYes.innerText = "Yes";
     restartYes.addEventListener("click", restartGame);
     restartPromptContainer.appendChild(restartYes)
     var restartNo = document.createElement("button")
-    restartNo.classList.add("col-1", "row", "offset-5", "restartNo");
+    restartNo.classList.add("row", "offset-5", "restartNo");
     restartNo.innerText = "No";
     restartNo.addEventListener("click", winnerScreenNo);
     restartPromptContainer.appendChild(restartNo);

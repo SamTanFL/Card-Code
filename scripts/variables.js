@@ -8,7 +8,7 @@ var player = {
     addDraw: 0,
     money: 0, //might use at a later time
     playerState: {
-        debuff: [],
+        debuff: ["none"],
         buff: []
     },
     progress: 0
@@ -69,11 +69,19 @@ var cards = [
     },
     {
         cardUniqueID: 5,
-        cardName: "Weaken",
+        cardName: "Weaken Att",
         cardType: "Status",
         cardEff: 5,
         cardDesc: "Has an additional Effect and weakens enemy",
-        cardAdd: 3
+        cardAdd: [2, 1]
+    },
+    {
+        cardUniqueID: 6,
+        cardName: "Weaken Block",
+        cardType: "Status",
+        cardEff: 5,
+        cardDesc: "Has an additional Effect and weakens enemy",
+        cardAdd: [2, 2]
     }
 ];
 
@@ -101,7 +109,7 @@ var enemies = {
         enemyID: 0,
         imgID: 0,
         status: {
-            debuff: [],
+            debuff: ["none"],
             buff: []
         }
     },
@@ -113,7 +121,7 @@ var enemies = {
         enemyID: 1,
         imgID: 1,
         status: {
-            debuff: [],
+            debuff: ["none"],
             buff: []
         }
     },
@@ -125,7 +133,7 @@ var enemies = {
         enemyID: 2,
         imgID: 2,
         status: {
-            debuff: [],
+            debuff: ["none"],
             buff: []
         }
     }
@@ -139,7 +147,7 @@ var enemies = {
         enemyID: 0,
         imgID: 3,
         status: {
-            debuff: [],
+            debuff: ["none"],
             buff: []
         }
     }
@@ -153,7 +161,7 @@ var enemies = {
         enemyID: 0,
         imgID: 4,
         status: {
-            debuff: [],
+            debuff: ["none"],
             buff: []
         }
     }
@@ -164,6 +172,7 @@ var enemies = {
 var currentEnemy;
 var currentActions;
 var turnAction;
+var enemyStatusTurns;
 
 
 //Actions that the enemies can take will be stored here in an object for the different types

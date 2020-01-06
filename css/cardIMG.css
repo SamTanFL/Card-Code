@@ -32,3 +32,33 @@
     background: url("../img/05cardPlaceholder.png");
     background-repeat: no-repeat;
 }
+
+.type6 {
+    background: url("../img/06cardPlaceholder.png");
+    background-repeat: no-repeat;
+}
+
+.normal {
+    background: url("../img/mapNode0.png");
+    background-repeat: no-repeat;
+}
+
+.elite {
+    background: url("../img/mapNode1.png");
+    background-repeat: no-repeat;
+}
+
+.boss {
+    background: url("../img/mapNode2.png");
+    background-repeat: no-repeat;
+}
+
+.rest {
+    background: url("../img/mapNode3.png");
+    background-repeat: no-repeat;
+}
+
+.randomEvent {
+    background: url("../img/mapNode4.png");
+    background-repeat: no-repeat;
+}

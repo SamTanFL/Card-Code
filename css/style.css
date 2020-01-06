@@ -21,7 +21,7 @@ div div.beginning-screen div.row{
 }
 
 body div div div.row.battleScreenTop img {
-    height: 400px;
+    height: 260px;
 }
 
 body div div div:nth-child(4) div.col.col-10.cardsInHand {
@@ -42,8 +42,16 @@ body div div .mapScreenBG {
 .mapNode {
     display: inline-flex;
     height: 100px;
+    width: 100px;
     border: solid black 2px;
     margin: 5px;
+    background-size: contain;
+}
+
+.mapPath {
+    height: 600px;
+    display: flex;
+    align-content: center;
 }
 
 .cleared {
@@ -130,4 +138,14 @@ body > div > div > div.row.battleScreenTop > div > img.shield {
 body > div > div > div.row.battleScreenTop > div {
     display: flex;
     align-items: flex-end;
+}
+
+.restartYes {
+    width: 100px;
+    text-align: center;
+}
+
+.restartNo {
+    width: 100px;
+    text-align: center;
 }

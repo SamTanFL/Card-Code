@@ -22,11 +22,8 @@ var initBattle = function () {
         currentActions = enemyActions.bosses[currentEnemy.enemyID];
         pickAction();
         shuffleSess2Deck();
-    } else if (mapLayout[mapPosition] == 3) {
-        console.log("You should be resting");
-        playerSession.health = playerSession.health + (playerSession.maxHealth * 0.25);
-    } else if (mapLayout[mapPosition] == 4) {
-        console.log("something random should happen");
+    } else {
+        console.log("initBattle has something wrong")
     }
 }
 
@@ -67,15 +64,46 @@ var mapNodeClick = function () {
     } else if (mapType == mapPosition && mapLayout[mapPosition] == 3) {
         playerSession.health = playerSession.health + (playerSession.maxHealth * 0.25);
         mapPosition++;
-        createMapScreen();
+        createRestScreen();
     } else if (mapType == mapPosition && mapLayout[mapPosition] == 4) {
         console.log("Something random happens");
-        var randomOptions = [0, 1, 3];
+        var randomOptions = [0, 1, 3, 4];
         ranNumGen(randomOptions.length);
         var randomOutcome = randomOptions[ranNum];
-        //i need to finish this
+        switch (randomOutcome) {
+            case 0:
+                var enemyTemp = JSON.parse(JSON.stringify(enemies.normal)); //clones the array
+                ranNumGen(enemyTemp.length);
+                currentEnemy = enemyTemp[ranNum];
+                currentActions = enemyActions.normal[currentEnemy.enemyID];
+                pickAction();
+                shuffleSess2Deck();
+                battleScreen();
+            break;
+            case 1:
+                var enemyTemp = JSON.parse(JSON.stringify(enemies.elites));
+                ranNumGen(enemyTemp.length);
+                currentEnemy = enemyTemp[ranNum];
+                currentActions = enemyActions.elites[currentEnemy.enemyID];
+                pickAction();
+                shuffleSess2Deck();
+                battleScreen();
+            break;
+            case 3:
+                playerSession.health = playerSession.health + (playerSession.maxHealth * 0.25);
+                mapPosition++;
+                createRestScreen();
+            break;
+            case 4:
+                mapPosition++;
+                cardDraftScreen();
+                cardDraftGeneration();
+            break;
+            default:
+                console.log("something is wrong here in the mapNodeClick")
+        } //closing bracket for switch
     } else {
-        console.log("something is broken");
+        console.log("something is broken or you're clicking on the wrong thing");
     }
 }
 
@@ -281,6 +309,20 @@ var executeFlow = function () {
                 };
                 enemyHPUpdate();
             break;
+            case "Status": //inflicts status
+                if (card.cardAdd[0] == 1) {
+                    if (currentEnemy.shields < 0) {currentEnemy.shields = 0};
+                    currentEnemy.shields = currentEnemy.shields - card.cardEff;
+                    if (currentEnemy.shields < 0) {
+                        currentEnemy.health = currentEnemy.health + currentEnemy.shields};
+                    currentEnemy.status.debuff[0] = ["weak", card.cardAdd[1]]
+                    enemyHPUpdate();
+                } else if (card.cardAdd[0] == 2) {
+                    playerSession.shields = playerSession.shields + card.cardEff;
+                    currentEnemy.status.debuff[0] = ["weak", card.cardAdd[1]]
+                    playerHPUpdate();
+                }
+            break;
             default:
                 console.log("something went wrong in executeFlow");
         }; // <<=============end of switch bracket
@@ -292,7 +334,11 @@ var enemyActs = function () {
     switch (turnAction[0]) {
         case 0:
             if (playerSession.shields < 0) {playerSession.shields = 0};
-            playerSession.shields = playerSession.shields - turnAction[1];
+            if (currentEnemy.status.debuff[0][0] == "weak") {
+                playerSession.shields = playerSession.shields - Math.floor(turnAction[1] * 0.75);
+            } else {
+                playerSession.shields = playerSession.shields - turnAction[1];
+            }
             if (playerSession.shields < 0) {
                 playerSession.health = playerSession.health + playerSession.shields;
             };
@@ -326,19 +372,38 @@ var updateEnemyActions = function () {
     var shieldVal = document.querySelector(".shieldVal");
     switch (turnAction[0]) {
         case 0:
+            if (currentEnemy.status.debuff[0][0] == "weak") {
+                attackVal.innerText = Math.floor(turnAction[1] * 0.75)
+                shieldVal.innerText = 0;
+            } else {
             attackVal.innerText = turnAction[1];
             shieldVal.innerText = 0;
+            }
         break;
         case 1:
             shieldVal.innerText = turnAction[1];
             attackVal.innerText = 0;
         break;
         case 2:
+            if (currentEnemy.status.debuff[0][0] == "weak") {
+                attackVal.innerText = Math.floor(turnAction[1] * 0.75);
+                shieldVal.innerText = turnAction[2];
+            } else {
             attackVal.innerText = turnAction[1];
             shieldVal.innerText = turnAction[2];
+            }
         break;
         default:
             console.log("something went wrong updating attacks")
+    }
+}
+
+//function for counting down the status effect turns
+var statusTurns = function () {
+    enemyStatusTurns = currentEnemy.status.debuff[0][1];
+    enemyStatusTurns--;
+    if (enemyStatusTurns <= 0) {
+        currentEnemy.status.debuff[0] = "none";
     }
 }
 
@@ -362,16 +427,17 @@ var resetEnemyShields = function () {
 }
 
 var endBattle = function () {
-    alert("The Enemy Has Died");
+    alert("The Enemy Died");
+    mapPosition++;
+    if (mapPosition == mapLayout.length) {
+        container.innerHTML = "";
+        winnerWinnerScreen();
+    } else {
     cardsInFlow = [ "empty", "empty", "empty"];
     cardsInFlowPosition = ["empty", "empty", "empty"];
     cardDraftScreen();
     cardDraftGeneration();
-    mapPosition++;
-    if (mapPosition == mapLayout.length + 1) {
-        container.innerHTML = "";
-        winnerWinnerScreen();
-    }
+    };
 }
 
 var resolveActions = function () {
@@ -385,6 +451,9 @@ var resolveActions = function () {
             emptyFlow();
             setTimeout(function(){dealCards(turnDraw)}, 1000);
             pickAction();
+            if (currentEnemy.status.debuff[0] !== "none") {
+            statusTurns();
+        }
             updateEnemyActions();
         } else {
             endBattle();
