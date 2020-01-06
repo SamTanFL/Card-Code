@@ -92,12 +92,16 @@ var createMapScreen = function () {
     var mapOverallScreen = document.createElement("div");
     mapOverallScreen.classList.add("mapScreenBG", "row", "col-12");
     container.appendChild(mapOverallScreen);
+    var mapHeader = document.createElement("img");
+    mapHeader.classList.add("row", "mapHeader", "offset-3");
+    mapHeader.setAttribute("src", "img/mapHeader.png")
+    mapOverallScreen.appendChild(mapHeader);
     var mapPath = document.createElement("div");
-    mapPath.classList.add("mapPath", "col-10", "offset-1");
+    mapPath.classList.add("mapPath", "col-12");
     mapOverallScreen.appendChild(mapPath);
     for (i = 0; i < mapLayout.length; i++) {
         var mapNode = document.createElement("div");
-        mapNode.classList.add("col", "mapNode", "notCleared", "mapNo" + i);
+        mapNode.classList.add("mapNode", "notCleared", "mapNo" + i);
         switch (mapLayout[i]) {
             case 0:
                 mapNode.classList.add("normal");
