@@ -50,6 +50,30 @@ var cards = [
         cardEff: 2,
         cardDesc: "For testing purpose. Can I do it?",
         cardAdd: 3
+    },
+    {
+        cardUniqueID: 3,
+        cardName: "Greater Attack",
+        cardType: 1,
+        cardEff: 8,
+        cardDesc: "Slightly better kind of Attack",
+        cardAdd: false
+    },
+    {
+        cardUniqueID: 4,
+        cardName: "Greater Block",
+        cardType: 2,
+        cardEff: 8,
+        cardDesc: "Slightly Better kind of Block",
+        cardAdd: false
+    },
+    {
+        cardUniqueID: 5,
+        cardName: "Weaken",
+        cardType: "Status",
+        cardEff: 5,
+        cardDesc: "Has an additional Effect and weakens enemy",
+        cardAdd: 3
     }
 ];
 

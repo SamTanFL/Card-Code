@@ -24,9 +24,18 @@ var initBattle = function () {
         shuffleSess2Deck();
     } else if (mapLayout[mapPosition] == 3) {
         console.log("You should be resting");
+        playerSession.health = playerSession.health + (playerSession.maxHealth * 0.25);
     } else if (mapLayout[mapPosition] == 4) {
         console.log("something random should happen");
     }
+}
+
+//restart the game variables
+var restartGame = function () {
+    playerSession = "";
+    cardsInSession = "";
+    mapPosition = 0;
+    createMainMenu();
 }
 
 //creates a clone of the defaults and resets player position
@@ -87,7 +96,7 @@ var mapNodeHover = function () {
 var emptyFlow = function () {
     flowArea = document.querySelectorAll(".flow");
     for (var i = 0; i < 3; i++) {
-        flowArea[i].attributes.class.textContent = "col col-1 flow empty";
+        flowArea[i].attributes.class.textContent = "col flow empty";
     }
     cardsInFlow = [ "empty", "empty", "empty"];
     cardsInFlowPosition = ["empty", "empty", "empty"];
@@ -311,6 +320,29 @@ var enemyActs = function () {
 } // <<==================the whole function's closing bracket
 
 
+//updates values to visually show what enemy is doing
+var updateEnemyActions = function () {
+    var attackVal = document.querySelector(".attackVal");
+    var shieldVal = document.querySelector(".shieldVal");
+    switch (turnAction[0]) {
+        case 0:
+            attackVal.innerText = turnAction[1];
+            shieldVal.innerText = 0;
+        break;
+        case 1:
+            shieldVal.innerText = turnAction[1];
+            attackVal.innerText = 0;
+        break;
+        case 2:
+            attackVal.innerText = turnAction[1];
+            shieldVal.innerText = turnAction[2];
+        break;
+        default:
+            console.log("something went wrong updating attacks")
+    }
+}
+
+
 //function to decide what the enemy is doing this turn
 var pickAction = function () {
     ranNumGen(currentActions.length);
@@ -336,6 +368,10 @@ var endBattle = function () {
     cardDraftScreen();
     cardDraftGeneration();
     mapPosition++;
+    if (mapPosition == mapLayout.length + 1) {
+        container.innerHTML = "";
+        winnerWinnerScreen();
+    }
 }
 
 var resolveActions = function () {
@@ -349,6 +385,7 @@ var resolveActions = function () {
             emptyFlow();
             setTimeout(function(){dealCards(turnDraw)}, 1000);
             pickAction();
+            updateEnemyActions();
         } else {
             endBattle();
         }

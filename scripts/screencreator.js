@@ -12,13 +12,32 @@ var battleScreen = function () {
     row1Div.classList.add("row", "battleScreenTop");
     battleScreenDiv.appendChild(row1Div);
     var playerImg = document.createElement("img");
-    playerImg.classList.add("playerImg");
+    playerImg.classList.add("playerImg", "offset-1");
     playerImg.setAttribute("src", "img/player.png");
     row1Div.appendChild(playerImg);
     var enemyImg = document.createElement("img");
-    enemyImg.classList.add("enemyImg");
+    enemyImg.classList.add("enemyImg", "offset-3");
     enemyImg.setAttribute("src", "img/enemy" + currentEnemy.imgID + ".png");
     row1Div.appendChild(enemyImg);
+    var enemyActsContainer = document.createElement("div");
+    enemyActsContainer.classList.add("col-1", "enemyActsContainer");
+    row1Div.appendChild(enemyActsContainer);
+    var enemyAttVal = document.createElement("div");
+    enemyAttVal.classList.add("row", "col-1", "attackVal");
+    enemyAttVal.innerText = "0";
+    enemyActsContainer.appendChild(enemyAttVal);
+    var enemyAttImg = document.createElement("img");
+    enemyAttImg.setAttribute("src", "img/attack.png");
+    enemyAttImg.classList.add("row", "attack");
+    enemyActsContainer.appendChild(enemyAttImg);
+    var enemyShdVal = document.createElement("div");
+    enemyShdVal.classList.add("row", "col-1", "shieldVal");
+    enemyShdVal.innerText = "0";
+    enemyActsContainer.appendChild(enemyShdVal);
+    var enemyShdImg = document.createElement("img");
+    enemyShdImg.setAttribute("src", "img/shield.png");
+    enemyShdImg.classList.add("row", "shield");
+    enemyActsContainer.appendChild(enemyShdImg);
     var row2Div = document.createElement("div");
     row2Div.classList.add("row");
     battleScreenDiv.appendChild(row2Div);
@@ -64,6 +83,7 @@ var battleScreen = function () {
     row4Div.appendChild(deckDisplay);
     calculateDraw();
     dealCards(turnDraw);
+    updateEnemyActions();
 }
 
 //Map Screen Creation
@@ -175,6 +195,15 @@ var cardDraftScreen = function () {
     cardDraftScreen.appendChild(draftSkipButton);
 }
 
+var restScreenChoice = function () {
+    var restScreenMain = document.querySelector(".restScreenMain");
+    restScreenMain.innerHTML = "";
+    var restChoiceContainer = document.createElement("div");
+    restChoiceContainer.classList.add("row", "col-10", "offset-1", "restChoiceContainer");
+    restScreenMain.appendChild(restChoiceContainer);
+}
+
+
 var createRestScreen = function () {
     var restScreenBG = document.createElement("div");
     restScreenBG.classList.add("restScreenBG", "background");
@@ -182,4 +211,50 @@ var createRestScreen = function () {
     var restScreenMain = document.createElement("div");
     restScreenMain.classList.add("restScreenMain", "col-10", "row", "offset-1");
     restScreenBG.appendChild(restScreenMain);
+    var restImg = document.createElement("img");
+    restImg.setAttribute("src", "img/rest.png");
+
+    restScreenMain.appendChild(restImg);
+}
+
+
+var createRestartPrompt = function () {
+    var winScreenBG = document.querySelector(".winScreenBG");
+    winScreenBG.innerHTML = "";
+    var restartPromptContainer = document.createElement("div");
+    restartPromptContainer.classList.add("row", "restartContainer");
+    winScreenBG.appendChild(restartPromptContainer);
+    var restartYes = document.createElement("button");
+    restartYes.classList.add("col-1", "row", "offset-5", "restartYes");
+    restartYes.innerText = "Yes";
+    restartYes.addEventListener("click", restartGame);
+    restartPromptContainer.appendChild(restartYes)
+    var restartNo = document.createElement("button")
+    restartNo.classList.add("col-1", "row", "offset-5", "restartNo");
+    restartNo.innerText = "No";
+    restartNo.addEventListener("click", winnerScreenNo);
+    restartPromptContainer.appendChild(restartNo);
+}
+
+
+var winnerWinnerScreen = function () {
+    container.innerHTML = "";
+    var winScreenBG = document.createElement("div");
+    winScreenBG.classList.add("winScreenBG", "background");
+    container.appendChild(winScreenBG);
+    var winScreen = document.createElement("div");
+    winScreen.classList.add("row", "col-10", "offset-1", "win");
+    winScreen.addEventListener("click", createRestartPrompt);
+    winScreenBG.appendChild(winScreen);
+}
+
+var winnerScreenNo = function () {
+    container.innerHTML = "";
+    var winScreenBG = document.createElement("div");
+    winScreenBG.classList.add("winScreenBG", "background");
+    container.appendChild(winScreenBG);
+    var winScreen = document.createElement("div");
+    winScreen.classList.add("row", "col-10", "offset-1", "win");
+    winScreen.addEventListener("click", createRestartPrompt);
+    winScreenBG.appendChild(winScreen);
 }
