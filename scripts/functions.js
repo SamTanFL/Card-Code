@@ -124,10 +124,9 @@ var mapNodeHover = function () {
 var emptyFlow = function () {
     flowArea = document.querySelectorAll(".flow");
     for (var i = 0; i < 3; i++) {
-        flowArea[i].attributes.class.textContent = "col flow empty";
+        flowArea[i].attributes.class.textContent = "flow empty";
     }
-    cardsInFlow = [ "empty", "empty", "empty"];
-    cardsInFlowPosition = ["empty", "empty", "empty"];
+    cardsInFlow = [];
 }
 
 //shuffles deck and slots it into the deck variable
@@ -135,44 +134,6 @@ var shuffleSess2Deck = function () {
     var tempD = JSON.parse(JSON.stringify(cardsInSession));
     shuffle(tempD);
     cardsInDeck = JSON.parse(JSON.stringify(tempD));
-}
-
-//gets the state of the card slot clicked and executes
-var getSlotData = function (event) {
-    if (this.attributes.state.textContent !== "empty" && this.attributes.state.textContent !== "used") {
-        var cardPosition = parseInt(this.attributes.position.textContent);
-        handToFlow(cardPosition);
-    } else {
-        console.log("do nothing");
-    }
-}
-
-//moves the card from Hand to flow area. Helps with tracking where card comes from
-var handToFlow = function (cardPosition) {
-    var tempHands = JSON.parse(JSON.stringify(cardsInHand));
-    var cardsHand = document.querySelectorAll(".cards");
-    var flowArea = document.querySelectorAll(".flow");
-    if (cardsInFlow[0] == "empty") {
-        cardsInFlow[0] = tempHands[cardPosition];
-        cardsInFlowPosition[0] = cardPosition;
-        flowArea[0].classList.remove("empty")
-        flowArea[0].classList.add("type" + cardsInFlow[0]);
-        cardsHand[cardPosition].setAttribute("state", "used");
-    } else if (cardsInFlow[1] == "empty") {
-        cardsInFlow[1] = tempHands[cardPosition];
-        cardsInFlowPosition[1] = cardPosition;
-        flowArea[1].classList.remove("empty")
-        flowArea[1].classList.add("type" + cardsInFlow[1]);
-        cardsHand[cardPosition].setAttribute("state", "used");
-    } else if (cardsInFlow[2] == "empty") {
-        cardsInFlow[2] = tempHands[cardPosition];
-        cardsInFlowPosition[2] = cardPosition;
-        flowArea[2].classList.remove("empty")
-        flowArea[2].classList.add("type" + cardsInFlow[2]);
-        cardsHand[cardPosition].setAttribute("state", "used");
-    } else {
-        alert("Flow is Full")
-    }
 }
 
 //Empties the hand into the discard pile
@@ -194,19 +155,29 @@ var shuffleDiscard2Deck = function () {
     };
 }
 
+//moves the card from Hand to flow area. Helps with tracking where card comes from
+var handToFlow = function (event) {
+    var cardsHand = document.querySelectorAll(".cards");
+    var flowArea = document.querySelectorAll(".flow");
+    var cardPosition = parseInt(this.attributes.position.textContent);
+    if (cardsInFlow.length < 3) {
+        cardsInFlow.push(cardsInHand.splice(cardPosition, 1)[0]);
+        updateHand();
+        updateFlow();
+    } else {
+        console.log("Flow is Full")
+    }
+}
+
 //moves card from flow back to hand
 var flowToHand = function (event) {
-        var flowPosition = parseInt(this.attributes.position.textContent);
-        var cardsHand = document.querySelectorAll(".cards");
-    if (cardsInFlow[flowPosition] !== "empty") {
-        cardsHand[cardsInFlowPosition[flowPosition]].setAttribute("state", cardsInFlow[flowPosition]);
-        this.setAttribute("state", "empty");
-        this.classList.remove("type" + cardsInFlow[flowPosition])
-        this.classList.add("empty");
-        cardsInFlow[flowPosition] = "empty";
-        cardsInFlowPosition[flowPosition] = "empty";
+    var flowPosition = parseInt(this.attributes.position.textContent);
+    if (cardsInFlow[flowPosition] !== undefined) {
+        cardsInHand.push(cardsInFlow.splice(flowPosition, 1)[0]);
+        updateHand();
+        updateFlow();
     } else {
-        console.log("do nuthing");
+        console.log("do nothing");
     }
 }
 
@@ -219,13 +190,43 @@ var dealCards = function (draws) {
         cardsInHand.push(cardsInDeck.shift());
         var card = document.createElement("div");
         card.classList.add("col", "cards", "type" + cardsInHand[i]);
-        card.setAttribute("state", cardsInHand[i]);
         card.setAttribute("id", "card" + i);
         card.setAttribute("position", i);
-        card.addEventListener("click", getSlotData);
+        card.addEventListener("click", handToFlow);
         cardsDisplay.appendChild(card);
     }
 }
+
+//recreates the hand
+var updateHand = function () {
+    var cardsDisplay = document.querySelector(".cardsInHand");
+    cardsDisplay.innerHTML = "";
+    for (i = 0; i < cardsInHand.length; i++) {
+        var card = document.createElement("div");
+        card.classList.add("cards", "type" + cardsInHand[i]);
+        card.setAttribute("position", i);
+        card.addEventListener("click", handToFlow);
+        cardsDisplay.appendChild(card);
+    }
+}
+
+//recreates the flow
+var updateFlow = function () {
+    var flowRow = document.querySelector(".flowRow");
+    flowRow.innerHTML = "";
+    for (i = 0; i < 3; i++) {
+        var flowCol = document.createElement("div");
+        if (cardsInFlow[i] == undefined){
+            flowCol.classList.add("flow", "empty");
+        } else {
+            flowCol.classList.add("flow", "type" + cardsInFlow[i]);
+        }
+        flowCol.setAttribute("position", i);
+        flowCol.addEventListener("click", flowToHand)
+        flowRow.appendChild(flowCol);
+    }
+}
+
 
 //calculate how many cards to draw;
 var calculateDraw = function () {

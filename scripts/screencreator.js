@@ -46,34 +46,26 @@ var battleScreen = function () {
     row2Div.classList.add("row");
     battleScreenDiv.appendChild(row2Div);
     var playerStatDiv = document.createElement("div");
-    playerStatDiv.classList.add("col", "col-2", "offset-2", "playerDis")
+    playerStatDiv.classList.add("col-2", "offset-2", "playerDis")
     playerStatDiv.innerText = `HP : ${playerSession.health}\nShield : ${playerSession.shields}`;
     row2Div.appendChild(playerStatDiv);
     var enemyStatDiv = document.createElement("div");
-    enemyStatDiv.classList.add("col", "col-2", "offset-3", "enemyDis")
+    enemyStatDiv.classList.add("col-2", "offset-3", "enemyDis")
     enemyStatDiv.innerText = `${currentEnemy.name}\nHP : ${currentEnemy.health}\nShield : ${currentEnemy.shields}`;
     row2Div.appendChild(enemyStatDiv);
     var row3Div = document.createElement("div");
     row3Div.classList.add("row");
     battleScreenDiv.appendChild(row3Div);
     var actionsFlow = document.createElement("span");
-    actionsFlow.classList.add("col", "col-4", "offset-4", "actionsFlow")
+    actionsFlow.classList.add("col-4", "offset-4", "actionsFlow")
     var flowRow = document.createElement("div");
     actionsFlow.appendChild(flowRow);
     flowRow.classList.add("row", "flowRow");
-    for (i = 0; i < 3; i++) {
-        var flowCol = document.createElement("div");
-        flowCol.classList.add("col", "flow", "empty");
-        flowCol.setAttribute("id", "flow" + i);
-        flowCol.setAttribute("state", "empty");
-        flowCol.setAttribute("position", i);
-        flowCol.addEventListener("click", flowToHand)
-        flowRow.appendChild(flowCol);
-    }
     row3Div.appendChild(actionsFlow);
+    updateFlow();
     var actionButton = document.createElement("div");
     actionButton.innerText = "Execute";
-    actionButton.classList.add("col", "executeButton", "col-1");
+    actionButton.classList.add("executeButton", "col-1");
     actionButton.addEventListener("click", resolveActions);
     row3Div.appendChild(actionButton)
     var row4Div = document.createElement("div");
@@ -83,7 +75,7 @@ var battleScreen = function () {
     cardsDisplay.classList.add("cardsInHand");
     row4Div.appendChild(cardsDisplay);
     var deckDisplay = document.createElement("div");
-    deckDisplay.classList.add("col", "col-1", "cardDeck");
+    deckDisplay.classList.add("col-1", "cardDeck");
     row4Div.appendChild(deckDisplay);
     calculateDraw();
     dealCards(turnDraw);
