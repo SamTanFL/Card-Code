@@ -47,7 +47,7 @@ var battleScreen = function () {
     battleScreenDiv.appendChild(row2Div);
     var playerStatDiv = document.createElement("div");
     playerStatDiv.classList.add("col-2", "offset-2", "playerDis")
-    playerStatDiv.innerText = `HP : ${playerSession.health}\nShield : ${playerSession.shields}`;
+    playerStatDiv.innerText = `HP : ${playerSession.health}`;
     row2Div.appendChild(playerStatDiv);
     var enemyStatDiv = document.createElement("div");
     enemyStatDiv.classList.add("col-2", "offset-3", "enemyDis")
@@ -56,7 +56,7 @@ var battleScreen = function () {
     var row3Div = document.createElement("div");
     row3Div.classList.add("row");
     battleScreenDiv.appendChild(row3Div);
-    var actionsFlow = document.createElement("span");
+    var actionsFlow = document.createElement("div");
     actionsFlow.classList.add("col-4", "offset-4", "actionsFlow")
     var flowRow = document.createElement("div");
     actionsFlow.appendChild(flowRow);
@@ -196,6 +196,7 @@ var cardDraftScreen = function () {
     cardDraftScreen.appendChild(draftSkipButton);
 }
 
+
 var restScreenChoice = function () {
     var restScreenMain = document.querySelector(".restScreenMain");
     restScreenMain.innerHTML = "";
@@ -253,6 +254,7 @@ var winnerWinnerScreen = function () {
     winScreenBG.appendChild(winScreen);
 }
 
+
 var winnerScreenNo = function () {
     container.innerHTML = "";
     var winScreenBG = document.createElement("div");
@@ -264,6 +266,7 @@ var winnerScreenNo = function () {
     winScreenBG.appendChild(winScreen);
 }
 
+
 var createInstructions = function () {
     var instructBG = document.createElement("div");
     instructBG.classList.add("background", "instructBG");
@@ -274,6 +277,7 @@ var createInstructions = function () {
     instructionIMG.addEventListener("click", createMainMenu)
     instructBG.appendChild(instructionIMG);
 }
+
 
 var gameOverScreen = function () {
     var gameOverBG = document.createElement("div");

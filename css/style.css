@@ -2,7 +2,10 @@ body {
     font-family: georgia;
 }
 
-
+.container {
+    width: 99%;
+    margin: 0 auto;
+}
 
 div div.beginning-screen div.row{
     height: 600px;
@@ -21,7 +24,7 @@ div div.beginning-screen div.row{
 }
 
 body div div div.row.battleScreenTop img {
-    height: 260px;
+    height: 240px;
     margin-top: 10px;
 }
 

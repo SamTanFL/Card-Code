@@ -45,7 +45,7 @@ var createSession = function () {
 
 var playerHPUpdate = function () {
     var playerDis = document.querySelector(".playerDis");
-    playerDis.innerText = `HP : ${playerSession.health}\nShield: ${playerSession.shields}`;
+    playerDis.innerText = `HP : ${playerSession.health}`;
 }
 
 var enemyHPUpdate = function () {
@@ -143,6 +143,9 @@ var discardHand = function () {
     for (var i = 0; i < handSize; i++) {
         cardsInDiscard.push(cardsInHand.shift());
     }
+    for (j = 0; j < 3; j++) {
+        cardsInDiscard.push(cardsInFlow.shift());
+    }
     var cardsDisplay = document.querySelector(".cardsInHand");
     cardsDisplay.innerHTML = "";
 }
@@ -188,13 +191,8 @@ var dealCards = function (draws) {
     for (i = 0; i < draws; i++) {
         if (cardsInDeck == 0) {shuffleDiscard2Deck()};
         cardsInHand.push(cardsInDeck.shift());
-        var card = document.createElement("div");
-        card.classList.add("col", "cards", "type" + cardsInHand[i]);
-        card.setAttribute("id", "card" + i);
-        card.setAttribute("position", i);
-        card.addEventListener("click", handToFlow);
-        cardsDisplay.appendChild(card);
     }
+    updateHand();
 }
 
 //recreates the hand
@@ -437,12 +435,12 @@ var endBattle = function () {
     mapPosition++;
     if (mapPosition == mapLayout.length) {
         container.innerHTML = "";
-        cardsInFlow = [ "empty", "empty", "empty"];
-        cardsInFlowPosition = ["empty", "empty", "empty"];
+        cardsInFlow = [];
+        cardsInHand = [];
         winnerWinnerScreen();
     } else {
-    cardsInFlow = [ "empty", "empty", "empty"];
-    cardsInFlowPosition = ["empty", "empty", "empty"];
+    cardsInFlow = [];
+    cardsInHand = [];
     cardDraftScreen();
     cardDraftGeneration();
     };

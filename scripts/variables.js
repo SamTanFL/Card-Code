@@ -1,8 +1,8 @@
 //===============================================Player Stuff===============================================
 //An object to keep track of player stats
 var player = {
-    health: 100,
-    maxHealth: 100,
+    health: 50,
+    maxHealth: 50,
     shields: 0,
     naturalDraw: 5,
     addDraw: 0,
@@ -154,8 +154,8 @@ var enemies = {
     bosses: [
     {
         name: "The Great Round One",
-        health: 314.159,
-        maxHealth: 314.159,
+        health: 80,
+        maxHealth: 80,
         shields: 0,
         enemyID: 0,
         imgID: 4,
