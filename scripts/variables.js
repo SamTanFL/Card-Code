@@ -47,7 +47,7 @@ var cards = [
         cardUniqueID: 2,
         cardName: "MultiStrike",
         cardType: 3,
-        cardEff: 2,
+        cardEff: 3,
         cardDesc: "For testing purpose. Can I do it?",
         cardAdd: 3
     },

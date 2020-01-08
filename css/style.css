@@ -1,10 +1,15 @@
 body {
     font-family: georgia;
+    background: #999;
 }
 
 .container {
     width: 99%;
     margin: 0 auto;
+}
+
+.beginning-screen {
+
 }
 
 div div.beginning-screen div.row{
@@ -35,6 +40,11 @@ body div div div:nth-child(4) div.col.col-10.cardsInHand {
 
 body div div div:nth-child(4) div.cardsInHand div {
     display: inline-flex;
+    position: relative;
+    animation-name: dealtCards;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-iteration-count: 1;
 }
 
 
@@ -188,4 +198,12 @@ body > div > div > div.row.battleScreenTop > div {
 
 .deckDisplay {
     display: inline-flex;
+}
+
+@keyframes dealtCards {
+    0%    {transform: translateX(-1000);}
+    25%   {transform: translateX(-750);}
+    50%   {transform: translateX(-500);}
+    75%   {transform: translateX(-250);}
+    100%  {transform: translateX(0);}
 }

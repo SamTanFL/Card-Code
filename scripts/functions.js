@@ -208,7 +208,7 @@ var updateHand = function () {
     cardsDisplay.innerHTML = "";
     for (i = 0; i < cardsInHand.length; i++) {
         var card = document.createElement("div");
-        card.classList.add("cards", "type" + cardsInHand[i]);
+        card.classList.add("cards", "type" + cardsInHand[i], "dealtCards");
         card.setAttribute("position", i);
         card.addEventListener("click", handToFlow);
         cardsDisplay.appendChild(card);
@@ -499,3 +499,9 @@ function shuffle(array) {
     [array[i], array[j]] = [array[j], array[i]];
   };
 } //it takes the
+
+
+
+var cheatKillEnemy = function () {
+    currentEnemy.health = 0;
+}
