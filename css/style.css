@@ -179,4 +179,13 @@ body > div > div > div.row.battleScreenTop > div {
     backdrop-filter: blur(5px);
     background: rgba(255,0,0,0.6);
 }
+
+.cardDeck {
+    position:absolute;
+    bottom: 1;
+    right: 0;
+}
+
+.deckDisplay {
+    display: inline-flex;
 }

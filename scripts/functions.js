@@ -54,6 +54,13 @@ var enemyHPUpdate = function () {
     enemyDis.innerText = `${currentEnemy.name}\nHP : ${currentEnemy.health}\nShield : ${currentEnemy.shields}`;
 }
 
+var clearDeckDisplay = function () {
+    var deckBG = document.querySelector(".deckBG");
+    container.removeChild(container.childNodes[1]);
+    deleteStuff.appendChild(deckBG);
+    deleteStuff.innerHTML = "";
+}
+
 //Map Stuffs------------------------------------------------------------------------------------------------
 //the function that is called when you click on a map node
 var mapNodeClick = function () {

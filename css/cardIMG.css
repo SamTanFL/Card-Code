@@ -3,6 +3,11 @@
     background-repeat: no-repeat;
 }
 
+.cardDeck {
+    background: url("../img/deck.png");
+    background-repeat: no-repeat;
+}
+
 .type0 {
     background: url("../img/00cardPlaceholder.png");
     background-repeat: no-repeat;

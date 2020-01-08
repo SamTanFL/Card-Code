@@ -218,4 +218,5 @@ var ranNum;
 //Finding my page elements
 var container = document.querySelector(".container");
 var initGameButton = document.querySelector(".initGame");
+var deleteStuff = document.querySelector(".getRidOfStuff");
 var restScreen;

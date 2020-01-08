@@ -47,7 +47,7 @@ var battleScreen = function () {
     battleScreenDiv.appendChild(row2Div);
     var playerStatDiv = document.createElement("div");
     playerStatDiv.classList.add("col-2", "offset-2", "playerDis")
-    playerStatDiv.innerText = `HP : ${playerSession.health}`;
+    playerStatDiv.innerText = `The Best Protag Ever\nHP : ${playerSession.health}`;
     row2Div.appendChild(playerStatDiv);
     var enemyStatDiv = document.createElement("div");
     enemyStatDiv.classList.add("col-2", "offset-3", "enemyDis")
@@ -71,11 +71,16 @@ var battleScreen = function () {
     var row4Div = document.createElement("div");
     row4Div.classList.add("row");
     battleScreenDiv.appendChild(row4Div);
+    var discardPile = document.createElement("div");
+    discardPile.classList.add("discard");
+    discardPile.addEventListener("click", showDiscards);
+    row4Div.appendChild(discardPile);
     var cardsDisplay = document.createElement("div");
     cardsDisplay.classList.add("cardsInHand");
     row4Div.appendChild(cardsDisplay);
     var deckDisplay = document.createElement("div");
-    deckDisplay.classList.add("col-1", "cardDeck");
+    deckDisplay.classList.add("cards", "cardDeck");
+    deckDisplay.addEventListener("click", showCardsInDeck);
     row4Div.appendChild(deckDisplay);
     calculateDraw();
     dealCards(turnDraw);
@@ -287,4 +292,24 @@ var gameOverScreen = function () {
     gameOverImg.setAttribute("src", "img/gameOver.png");
     gameOverImg.addEventListener("click", createMainMenu);
     gameOverBG.appendChild(gameOverImg);
+}
+
+var showDiscards = function () {
+
+}
+
+
+var showCardsInDeck = function () {
+    var cardDeckBG = document.createElement("div");
+    cardDeckBG.classList.add("background", "deckBG");
+    cardDeckBG.addEventListener("click", clearDeckDisplay)
+    container.appendChild(cardDeckBG);
+    var cardDeckDisplay = document.createElement("div");
+    cardDeckDisplay.classList.add("deckDisplay");
+    cardDeckBG.appendChild(cardDeckDisplay);
+    for (var i = 0; i < cardsInDeck.length; i++) {
+        var card = document.createElement("div");
+        card.classList.add("cards", "type" + cardsInDeck[i]);
+        cardDeckDisplay.appendChild(card);
+    };
 }
